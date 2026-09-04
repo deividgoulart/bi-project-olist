@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 760" width="1160" height="760" font-family="Segoe UI, Calibri, Arial, sans-serif">
+  <defs>
+    <marker id="um" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#131B33"/>
+    </marker>
+  </defs>
+  <rect width="1160" height="760" fill="#FFFFFF"/>
+
+  <!-- ============ dimProduto ============ -->
+  <g stroke="#131B33" stroke-width="1.6" fill="#FFFFFF">
+    <rect x="120" y="40" width="230" height="94" rx="4"/>
+    <line x1="120" y1="70" x2="350" y2="70"/>
+    <line x1="120" y1="102" x2="350" y2="102"/>
+  </g>
+  <text x="235" y="61" font-size="14" font-weight="600" fill="#131B33" text-anchor="middle">dimProduto</text>
+  <text x="132" y="91" font-size="13" fill="#131B33">PK</text>
+  <text x="172" y="91" font-size="13" fill="#131B33" text-decoration="underline">product_id</text>
+  <text x="132" y="123" font-size="13" fill="#131B33">product_category_name</text>
+
+  <!-- ============ dimCalendario ============ -->
+  <g stroke="#131B33" stroke-width="1.6" fill="#FFFFFF">
+    <rect x="790" y="40" width="230" height="142" rx="4"/>
+    <line x1="790" y1="70" x2="1020" y2="70"/>
+    <line x1="790" y1="102" x2="1020" y2="102"/>
+  </g>
+  <text x="905" y="61" font-size="14" font-weight="600" fill="#131B33" text-anchor="middle">dimCalendario</text>
+  <text x="802" y="91" font-size="13" fill="#131B33">PK</text>
+  <text x="842" y="91" font-size="13" fill="#131B33" text-decoration="underline">Date</text>
+  <text x="802" y="123" font-size="13" fill="#131B33">AnoMês</text>
+  <text x="802" y="147" font-size="13" fill="#131B33">Mês</text>
+  <text x="802" y="171" font-size="13" fill="#131B33">Mês Número</text>
+
+  <!-- ============ dimVendedor ============ -->
+  <g stroke="#131B33" stroke-width="1.6" fill="#FFFFFF">
+    <rect x="30" y="330" width="210" height="94" rx="4"/>
+    <line x1="30" y1="360" x2="240" y2="360"/>
+    <line x1="30" y1="392" x2="240" y2="392"/>
+  </g>
+  <text x="135" y="351" font-size="14" font-weight="600" fill="#131B33" text-anchor="middle">dimVendedor</text>
+  <text x="42" y="381" font-size="13" fill="#131B33">PK</text>
+  <text x="82" y="381" font-size="13" fill="#131B33" text-decoration="underline">seller_id</text>
+  <text x="42" y="413" font-size="13" fill="#131B33">seller_name</text>
+
+  <!-- ============ dimCliente ============ -->
+  <g stroke="#131B33" stroke-width="1.6" fill="#FFFFFF">
+    <rect x="920" y="330" width="210" height="94" rx="4"/>
+    <line x1="920" y1="360" x2="1130" y2="360"/>
+    <line x1="920" y1="392" x2="1130" y2="392"/>
+  </g>
+  <text x="1025" y="351" font-size="14" font-weight="600" fill="#131B33" text-anchor="middle">dimCliente</text>
+  <text x="932" y="381" font-size="13" fill="#131B33">PK</text>
+  <text x="972" y="381" font-size="13" fill="#131B33" text-decoration="underline">customer_id</text>
+  <text x="932" y="413" font-size="13" fill="#131B33">customer_state</text>
+
+  <!-- ============ fatoItensPedido ============ -->
+  <g stroke="#0A4EE4" stroke-width="2" fill="#FFFFFF">
+    <rect x="300" y="290" width="250" height="240" rx="4"/>
+    <line x1="300" y1="322" x2="550" y2="322"/>
+    <line x1="300" y1="342" x2="550" y2="342"/>
+    <line x1="300" y1="426" x2="550" y2="426"/>
+  </g>
+  <text x="425" y="312" font-size="14" font-weight="600" fill="#0A4EE4" text-anchor="middle">fatoItensPedido</text>
+  <text x="425" y="337" font-size="11" fill="#4C5378" text-anchor="middle">grão: item de pedido · 109.362 linhas</text>
+  <text x="312" y="380" font-size="13" fill="#131B33">FK</text>
+  <text x="352" y="364" font-size="13" fill="#131B33" text-decoration="underline">order_id</text>
+  <text x="352" y="388" font-size="13" fill="#131B33" text-decoration="underline">product_id</text>
+  <text x="352" y="412" font-size="13" fill="#131B33" text-decoration="underline">seller_id</text>
+  <text x="312" y="447" font-size="12" fill="#4C5378">colunas calculadas (RELATED):</text>
+  <text x="312" y="468" font-size="13" fill="#131B33">Categoria do Produto</text>
+  <text x="312" y="489" font-size="13" fill="#131B33">Nome do Vendedor</text>
+  <text x="312" y="510" font-size="13" fill="#131B33">Data Estimada / Real, Dias Atrasados</text>
+
+  <!-- ============ fatoPedidos ============ -->
+  <g stroke="#0A4EE4" stroke-width="2" fill="#FFFFFF">
+    <rect x="640" y="290" width="250" height="240" rx="4"/>
+    <line x1="640" y1="322" x2="890" y2="322"/>
+    <line x1="640" y1="342" x2="890" y2="342"/>
+    <line x1="640" y1="404" x2="890" y2="404"/>
+  </g>
+  <text x="765" y="312" font-size="14" font-weight="600" fill="#0A4EE4" text-anchor="middle">fatoPedidos</text>
+  <text x="765" y="337" font-size="11" fill="#4C5378" text-anchor="middle">grão: pedido · 95.824 linhas</text>
+  <text x="652" y="364" font-size="13" fill="#131B33">PK</text>
+  <text x="692" y="364" font-size="13" fill="#131B33" text-decoration="underline">order_id</text>
+  <text x="652" y="390" font-size="13" fill="#131B33">FK</text>
+  <text x="692" y="390" font-size="13" fill="#131B33" text-decoration="underline">customer_id</text>
+  <text x="652" y="425" font-size="13" fill="#131B33">order_purchase_date</text>
+  <text x="652" y="446" font-size="13" fill="#131B33">order_delivered_customer_date</text>
+  <text x="652" y="467" font-size="13" fill="#131B33">order_estimated_delivery_date</text>
+  <text x="652" y="488" font-size="13" fill="#131B33">review_score · dias_entrega</text>
+  <text x="652" y="509" font-size="13" fill="#131B33">atrasado · dias_atraso</text>
+
+  <!-- ============ relacionamentos ============ -->
+  <g stroke="#131B33" stroke-width="1.6" fill="none">
+    <!-- dimProduto -> fatoItensPedido -->
+    <path d="M 235 134 L 235 250 L 360 250 L 360 286" marker-end="url(#um)"/>
+    <!-- dimVendedor -> fatoItensPedido -->
+    <path d="M 240 377 L 296 377" marker-end="url(#um)"/>
+    <!-- dimCalendario -> fatoPedidos -->
+    <path d="M 905 182 L 905 250 L 800 250 L 800 286" marker-end="url(#um)"/>
+  </g>
+  <!-- dimCliente <-> fatoPedidos (bidirecional) -->
+  <path d="M 916 377 L 894 377" stroke="#0A4EE4" stroke-width="2" fill="none" marker-start="url(#um)" marker-end="url(#um)"/>
+  <!-- fatoItensPedido <-> fatoPedidos (bidirecional) -->
+  <path d="M 554 400 L 636 400" stroke="#0A4EE4" stroke-width="2" fill="none" marker-start="url(#um)" marker-end="url(#um)"/>
+
+  <g font-size="11" fill="#4C5378">
+    <text x="248" y="244">1 : N</text>
+    <text x="248" y="370">1 : N</text>
+    <text x="812" y="244">1 : N</text>
+    <text x="595" y="392" text-anchor="middle" fill="#0A4EE4">N : 1</text>
+    <text x="595" y="418" text-anchor="middle" fill="#0A4EE4">bidirecional</text>
+    <text x="905" y="345" text-anchor="middle" fill="#0A4EE4">N : 1</text>
+    <text x="905" y="418" text-anchor="middle" fill="#0A4EE4">bidirecional</text>
+  </g>
+
+  <!-- ============ Tema (desconectada) ============ -->
+  <g stroke="#8A90AE" stroke-width="1.6" stroke-dasharray="6 4" fill="#FFFFFF">
+    <rect x="30" y="600" width="230" height="72" rx="4"/>
+    <line x1="30" y1="630" x2="260" y2="630"/>
+  </g>
+  <text x="145" y="621" font-size="14" font-weight="600" fill="#4C5378" text-anchor="middle">Tema</text>
+  <text x="42" y="652" font-size="13" fill="#4C5378">Modo  ·  Claro / Escuro</text>
+  <text x="42" y="694" font-size="12" fill="#8A90AE">Tabela desconectada: não filtra dado nenhum,</text>
+  <text x="42" y="711" font-size="12" fill="#8A90AE">só alimenta a medida de tema dos visuais.</text>
+
+  <!-- ============ notas ============ -->
+  <text x="640" y="600" font-size="12" fill="#4C5378">Dois fatos em grãos diferentes. As colunas calculadas na fatoItensPedido trazem</text>
+  <text x="640" y="618" font-size="12" fill="#4C5378">atributos ao grão do item para evitar produto cartesiano em visuais sem medida.</text>
+  <text x="640" y="648" font-size="12" fill="#4C5378">A dimCalendario liga por order_delivered_customer_date.</text>
+  <text x="640" y="722" font-size="12" fill="#8A90AE">Dashboard de Operações e CX · Deivid Goulart Massiroli</text>
+</svg>
