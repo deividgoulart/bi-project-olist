@@ -50,11 +50,15 @@ O projeto seguiu a metodologia de [Gabriela Costa](https://www.linkedin.com/puls
 
 **4. Mockup** — identidade visual aplicada, aprovado antes de qualquer linha de código.
 
-![Mockup](docs/img/mockup.png)
+| Tela 1 — Visão geral | Tela 2 — Detalhe |
+|---|---|
+| ![Mockup tela 1](docs/img/mockup-tela-1.png) | ![Mockup tela 2](docs/img/mockup-tela-2.png) |
+
+
 
 **5. Construção** — modelo dimensional, medidas DAX e os visuais customizados.
 
-📄 **[Documentação completa do dashboard](https://docs.google.com/document/d/1awJ2zWBg8JRzXyQOTPRkgzlLG4Ei78oG0qNuYDhUPuo/edit?usp=sharing)** — documento técnico com objetivo, público-alvo, fontes de dados, transformações, modelo dimensional, estrutura das páginas, medidas, controle de acesso e histórico de mudanças.
+📄 **[Documentação completa do dashboard](https://docs.google.com/document/d/1OvDOYMY5F3oqf9j0I_1TopABkAd0c73icuKaQIfFH8g/edit?usp=sharing)** — documento técnico com objetivo, público-alvo, fontes de dados, transformações, modelo dimensional, estrutura das páginas, medidas, controle de acesso e histórico de mudanças.
 
 ## Os visuais customizados
 
@@ -100,19 +104,10 @@ git clone https://github.com/deividgoulart/bi-project-olist.git
 
 As consultas leem os CSVs deste repositório por HTTP (`Web.Contents` sobre `raw.githubusercontent.com`), não de caminho local — é isso que permite publicar no Power BI Service e atualizar sem gateway.
 
-Para desenvolver os visuais:
-
-```bash
-cd Pbiviz/tabelaOlist
-npm install
-npm start     # modo desenvolvedor, conecta no Power BI Desktop
-npm test      # Jest
-```
-
 ## Dados
 
 [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) — dados reais e anonimizados de ~100 mil pedidos feitos em marketplaces brasileiros entre 2016 e 2018.
 
-Licença [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Os arquivos em `data/` são cópia do dataset original, mantida aqui para que o relatório possa ser atualizado sem depender de arquivo local. O `olist_geolocation_dataset.csv` não foi incluído por não ser usado pelo modelo.
+Licença [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Os arquivos em `data/` são cópia do dataset original, mantida aqui para que o relatório possa ser atualizado sem depender de arquivo local.
 
 > O cenário de negócio — a área solicitante, os stakeholders e as metas — é **fictício**, construído para o exercício. Os dados são reais.
