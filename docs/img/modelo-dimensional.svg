@@ -97,9 +97,9 @@
     <path d="M 240 377 L 296 377" marker-end="url(#um)"/>
     <!-- dimCalendario -> fatoPedidos -->
     <path d="M 905 182 L 905 250 L 800 250 L 800 286" marker-end="url(#um)"/>
+    <!-- dimCliente -> fatoPedidos -->
+    <path d="M 916 377 L 894 377" marker-end="url(#um)"/>
   </g>
-  <!-- dimCliente <-> fatoPedidos (bidirecional) -->
-  <path d="M 916 377 L 894 377" stroke="#0A4EE4" stroke-width="2" fill="none" marker-start="url(#um)" marker-end="url(#um)"/>
   <!-- fatoItensPedido <-> fatoPedidos (bidirecional) -->
   <path d="M 554 400 L 636 400" stroke="#0A4EE4" stroke-width="2" fill="none" marker-start="url(#um)" marker-end="url(#um)"/>
 
@@ -109,8 +109,7 @@
     <text x="812" y="244">1 : N</text>
     <text x="595" y="392" text-anchor="middle" fill="#0A4EE4">N : 1</text>
     <text x="595" y="418" text-anchor="middle" fill="#0A4EE4">bidirecional</text>
-    <text x="905" y="345" text-anchor="middle" fill="#0A4EE4">N : 1</text>
-    <text x="905" y="418" text-anchor="middle" fill="#0A4EE4">bidirecional</text>
+    <text x="905" y="345" text-anchor="middle">N : 1</text>
   </g>
 
   <!-- ============ Tema (desconectada) ============ -->
@@ -127,5 +126,7 @@
   <text x="640" y="600" font-size="12" fill="#4C5378">Dois fatos em grãos diferentes. As colunas calculadas na fatoItensPedido trazem</text>
   <text x="640" y="618" font-size="12" fill="#4C5378">atributos ao grão do item para evitar produto cartesiano em visuais sem medida.</text>
   <text x="640" y="648" font-size="12" fill="#4C5378">A dimCalendario liga por order_delivered_customer_date.</text>
+  <text x="640" y="672" font-size="12" fill="#0A4EE4">O único relacionamento bidirecional é entre os dois fatos: sem ele, um filtro de UF</text>
+  <text x="640" y="690" font-size="12" fill="#0A4EE4">ou de período não alcançaria a tabela de itens.</text>
   <text x="640" y="722" font-size="12" fill="#8A90AE">Dashboard de Operações e CX · Deivid Goulart Massiroli</text>
 </svg>
