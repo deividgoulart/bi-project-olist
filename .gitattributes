@@ -1,0 +1,2 @@
+# CSVs sao dados: o git nao deve normalizar quebra de linha nem encoding
+*.csv -text
