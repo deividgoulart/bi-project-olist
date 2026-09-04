@@ -30,7 +30,7 @@ Cinco KPIs, cada um com meta definida pela área antes da construção:
 
 Quatro dos cinco indicadores ficam fora da meta — e é exatamente esse o tipo de leitura que o dashboard existe para tornar imediata.
 
-**Base analisada:** 95.824 pedidos entregues e avaliados, 109.362 itens, entre setembro de 2016 e agosto de 2018, cobrindo 74 categorias, 3.095 sellers e 27 UFs.
+**Base analisada:** 95.824 pedidos entregues e avaliados, 109.362 itens, cobrindo 74 categorias, 3.095 sellers e 27 UFs. As compras vão de setembro de 2016 a agosto de 2018 e as entregas se estendem até outubro de 2018 — o filtro de período do dashboard usa a **data de entrega**, que é o eixo do problema analisado.
 
 ## O processo
 
@@ -77,14 +77,14 @@ O mockup definiu uma identidade que os visuais nativos não alcançam: cantos ar
 
 Cada um tem README próprio documentando decisões de implementação e limitações conhecidas — incluindo as que custaram caro, como o `position: fixed` que não funciona dentro do canvas transformado do Power BI Desktop, ou por que o filtro aceita apenas um campo por instância.
 
-Todos em **TypeScript**, com LESS para estilo, D3 onde há desenho vetorial, e Jest cobrindo a lógica pura. O tema claro/escuro é compartilhado entre todos por uma única medida DAX.
+Todos em **TypeScript**, com LESS para estilo e Jest cobrindo a lógica pura. Só o `barrasOlist` usa **D3** — e nos pacotes modulares (`d3-scale`, `d3-axis`, `d3-shape`), não na biblioteca inteira; os demais manipulam o DOM diretamente, sem dependência de desenho. O tema claro/escuro é compartilhado entre todos por uma única medida DAX.
 
 ## Stack e modelagem
 
 - **Power BI Desktop** (formato PBIP, versionável)
 - **Power Query (M)** para a camada de transformação
 - **DAX** — 9 medidas organizadas em pastas de exibição
-- **TypeScript / LESS / D3 / Jest** nos visuais customizados
+- **TypeScript / LESS / Jest** nos visuais customizados, com **D3** apenas no gráfico de barras
 - **Modelo estrela com dois fatos em grãos diferentes**: `fatoPedidos` (grão de pedido) e `fatoItensPedido` (grão de item), com 4 dimensões e uma tabela desconectada para o tema
 
 Duas decisões de modelagem que valem menção:
