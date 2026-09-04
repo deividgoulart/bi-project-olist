@@ -1,0 +1,165 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "842f2f7d1f567fdcd0c8",
+  "position": {
+    "x": 1064.7761194029852,
+    "y": 19.701492537313431,
+    "z": 8000,
+    "height": 242.68656716417911,
+    "width": 200.59701492537312,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "filtroOlistA11481BC65E33DF73612FD4532826856",
+    "query": {
+      "queryState": {
+        "modoVisual": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Modo Visual"
+                }
+              },
+              "queryRef": "Medidas.Modo Visual",
+              "nativeQueryRef": "Modo Visual"
+            }
+          ]
+        },
+        "categoria": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimVendedor"
+                    }
+                  },
+                  "Property": "seller_name"
+                }
+              },
+              "queryRef": "dimVendedor.seller_name",
+              "nativeQueryRef": "Seller",
+              "displayName": "Seller"
+            }
+          ]
+        },
+        "campo1": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimVendedor"
+                    }
+                  },
+                  "Property": "seller_name"
+                }
+              },
+              "queryRef": "dimVendedor.seller_name",
+              "nativeQueryRef": "Seller",
+              "displayName": "Seller"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Filtro Seller'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

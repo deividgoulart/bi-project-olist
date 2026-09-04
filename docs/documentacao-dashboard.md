@@ -53,14 +53,16 @@ Operação de marketplace com entregas realizadas por sellers distribuídos por 
 
 **Cenário previsto no levantamento:** base transacional de e-commerce com extração diária para o data warehouse, consumida pelo Power BI.
 
-**Implementação atual:** os dados vêm de arquivos CSV do dataset público da Olist, tratados diretamente no Power Query. Não há data warehouse nem pipeline agendado — o projeto é conceitual, e a camada de transformação que num cenário real estaria no ELT foi implementada no próprio Power Query.
+**Implementação atual:** os dados vêm de arquivos CSV do dataset público da Olist, lidos por HTTP (`Web.Contents` sobre `raw.githubusercontent.com`) a partir da pasta `data/` do próprio repositório, e tratados no Power Query. Não há data warehouse nem pipeline agendado — o projeto é conceitual, e a camada de transformação que num cenário real estaria no ELT foi implementada no próprio Power Query.
 
 | Camada | Cenário previsto | Implementação atual |
 |---|---|---|
-| Origem | Base transacional | CSV (dataset público) |
+| Origem | Base transacional | CSV público, lido por HTTP |
 | Transformação | ELT no data warehouse | Power Query (M) |
 | Modelagem | Data warehouse | Modelo tabular do Power BI |
 | Visualização | Power BI | Power BI |
+
+A leitura por HTTP em vez de caminho local é deliberada: fonte de arquivo local exigiria gateway para atualizar no Power BI Service. O parâmetro `RelativePath` do `Web.Contents` mantém a URL base estática, condição para que a atualização agendada funcione.
 
 ### 2.2 Sistemas de Origem e Tabelas Utilizadas
 
@@ -319,6 +321,15 @@ Como ambos os perfis precisam da visão completa e não há restrição por usu�
 | Dataset de origem | [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) |
 | Metodologia seguida | [Criando dashboards do zero — Gabriela Costa](https://www.linkedin.com/pulse/criando-dashboards-do-zero-gabriela-costa-yswwf/) |
 
+### Prints do dashboard
+
+| Página | Imagem |
+|---|---|
+| Dashboard de operações e CX | [`docs/img/dashboard-pagina-1.png`](img/dashboard-pagina-1.png) |
+| Detalhe de pedidos | [`docs/img/dashboard-pagina-2.png`](img/dashboard-pagina-2.png) |
+
 ### Visuais customizados
 
-Cada visual tem documentação própria no repositório, com decisões de implementação e limitações conhecidas: `tabelaOlist`, `barrasOlist`, `cardsOlist`, `filtroOlist`, `cabecalhoOlist`, `botaoVoltarOlist`, `temaOlist` e `fundoOlist`.
+Cada visual tem documentação própria no repositório, com decisões de implementação e limitações conhecidas:
+
+[`tabelaOlist`](../Pbiviz/tabelaOlist/README.md) · [`barrasOlist`](../Pbiviz/barrasOlist/README.md) · [`cardsOlist`](../Pbiviz/cardsOlist/README.md) · [`filtroOlist`](../Pbiviz/filtroOlist/README.md) · [`cabecalhoOlist`](../Pbiviz/cabecalhoOlist/README.md) · [`botaoVoltarOlist`](../Pbiviz/botaoVoltarOlist/README.md) · [`temaOlist`](../Pbiviz/temaOlist/README.md) · [`fundoOlist`](../Pbiviz/fundoOlist/README.md)

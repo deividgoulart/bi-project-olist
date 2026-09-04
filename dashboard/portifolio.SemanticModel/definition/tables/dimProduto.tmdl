@@ -1,0 +1,36 @@
+table dimProduto
+	lineageTag: f5799f84-e1b0-4342-b79e-e55728aa61bd
+
+	column product_id
+		dataType: string
+		isHidden
+		lineageTag: c2dd30e5-359c-4d4c-b3bb-ae9504dfd748
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_category_name
+		dataType: string
+		lineageTag: 19cb3693-9bbb-40a5-817c-a06c9dcd0337
+		summarizeBy: none
+		sourceColumn: product_category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimProduto = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://raw.githubusercontent.com/deividgoulart/bi-project-olist/main/data/", [RelativePath="olist_products_dataset.csv"]),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"product_id", type text}, {"product_category_name", type text}, {"product_name_lenght", Int64.Type}, {"product_description_lenght", Int64.Type}, {"product_photos_qty", Int64.Type}, {"product_weight_g", Int64.Type}, {"product_length_cm", Int64.Type}, {"product_height_cm", Int64.Type}, {"product_width_cm", Int64.Type}}),
+				    // Substituir nulo por Não categorizado
+				    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado","","Não categorizado",Replacer.ReplaceValue,{"product_category_name"}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Valor Substituído",{"product_name_lenght", "product_description_lenght", "product_photos_qty", "product_weight_g", "product_length_cm", "product_height_cm", "product_width_cm"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,439 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "e0427146b7c185c1b675",
+  "position": {
+    "x": 49.19051512673753,
+    "y": 223,
+    "z": 1000,
+    "height": 474.11283728536387,
+    "width": 1204.6443172526574,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tabelaOlistE2A885198E79EAD13BA83D1EB7410E2C",
+    "query": {
+      "queryState": {
+        "campos": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fatoItensPedido"
+                    }
+                  },
+                  "Property": "order_id"
+                }
+              },
+              "queryRef": "fatoItensPedido.order_id",
+              "nativeQueryRef": "order_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fatoItensPedido"
+                    }
+                  },
+                  "Property": "Categoria do Produto"
+                }
+              },
+              "queryRef": "fatoItensPedido.Categoria do Produto",
+              "nativeQueryRef": "categoria",
+              "displayName": "categoria"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fatoItensPedido"
+                    }
+                  },
+                  "Property": "Nome do Vendedor"
+                }
+              },
+              "queryRef": "fatoItensPedido.Nome do Vendedor",
+              "nativeQueryRef": "seller",
+              "displayName": "seller"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fatoItensPedido"
+                    }
+                  },
+                  "Property": "Data Estimada de Entrega"
+                }
+              },
+              "queryRef": "fatoItensPedido.Data Estimada de Entrega",
+              "nativeQueryRef": "prazo estimado",
+              "displayName": "prazo estimado"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fatoItensPedido"
+                    }
+                  },
+                  "Property": "Data de Entrega Real"
+                }
+              },
+              "queryRef": "fatoItensPedido.Data de Entrega Real",
+              "nativeQueryRef": "entregue em",
+              "displayName": "entregue em"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fatoItensPedido"
+                    }
+                  },
+                  "Property": "Dias Atrasados"
+                }
+              },
+              "queryRef": "fatoItensPedido.Dias Atrasados",
+              "nativeQueryRef": "atraso",
+              "displayName": "atraso"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Score Médio"
+                }
+              },
+              "queryRef": "Medidas.Score Médio",
+              "nativeQueryRef": "nota",
+              "displayName": "nota"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Status Atraso"
+                }
+              },
+              "queryRef": "Medidas.Status Atraso",
+              "nativeQueryRef": "Status Atraso"
+            }
+          ]
+        },
+        "modoVisual": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Modo Visual"
+                }
+              },
+              "queryRef": "Medidas.Modo Visual",
+              "nativeQueryRef": "Modo Visual"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fatoItensPedido"
+                  }
+                },
+                "Property": "Data de Entrega Real"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "columnFormatting": [
+        {
+          "properties": {
+            "columnOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fatoItensPedido.Data Estimada de Entrega"
+          }
+        },
+        {
+          "properties": {
+            "columnOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fatoItensPedido.Data de Entrega Real"
+          }
+        },
+        {
+          "properties": {
+            "hideColumn": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "columnOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Modo Visual"
+          }
+        },
+        {
+          "properties": {
+            "columnOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fatoItensPedido.Categoria do Produto"
+          }
+        },
+        {
+          "properties": {
+            "columnOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fatoItensPedido.order_id"
+          }
+        },
+        {
+          "properties": {
+            "columnOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fatoItensPedido.Nome do Vendedor"
+          }
+        },
+        {
+          "properties": {
+            "colorSource": {
+              "expr": {
+                "Literal": {
+                  "Value": "'statusColumn'"
+                }
+              }
+            },
+            "statusColumnName": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Status Atraso'"
+                }
+              }
+            },
+            "positiveValue": {
+              "expr": {
+                "Literal": {
+                  "Value": "''"
+                }
+              }
+            },
+            "negativeValue": {
+              "expr": {
+                "Literal": {
+                  "Value": "''"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fatoItensPedido.Dias Atrasados"
+          }
+        },
+        {
+          "properties": {
+            "statusColumnName": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Meta Nota'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "colorSource": {
+              "expr": {
+                "Literal": {
+                  "Value": "'statusColumn'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Score Médio"
+          }
+        },
+        {
+          "properties": {
+            "hideColumn": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Status Atraso"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Tabela'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

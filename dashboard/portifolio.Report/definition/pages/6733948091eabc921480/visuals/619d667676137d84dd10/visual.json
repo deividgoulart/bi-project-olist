@@ -1,0 +1,170 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "619d667676137d84dd10",
+  "position": {
+    "x": 1071,
+    "y": 19.701492537313431,
+    "z": 8000,
+    "height": 242.68656716417911,
+    "width": 199.70149253731344,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "filtroOlistA11481BC65E33DF73612FD4532826856",
+    "query": {
+      "queryState": {
+        "modoVisual": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Modo Visual"
+                }
+              },
+              "queryRef": "Medidas.Modo Visual",
+              "nativeQueryRef": "Modo Visual"
+            }
+          ]
+        },
+        "categoria": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimCliente"
+                    }
+                  },
+                  "Property": "customer_state"
+                }
+              },
+              "queryRef": "dimCliente.customer_state",
+              "nativeQueryRef": "UF",
+              "displayName": "UF"
+            }
+          ]
+        },
+        "campo1": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimCliente"
+                    }
+                  },
+                  "Property": "customer_state"
+                }
+              },
+              "queryRef": "dimCliente.customer_state",
+              "nativeQueryRef": "UF",
+              "displayName": "UF"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Filtro UF'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "syncGroup": {
+      "groupName": "Modo Visual1",
+      "fieldChanges": true,
+      "filterChanges": true
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -4,10 +4,9 @@ Um dashboard de Power BI que conecta **prazo de entrega** e **satisfação do cl
 
 Construído do zero — do levantamento de requisitos aos oito visuais customizados desenvolvidos em TypeScript, porque nenhum visual nativo do Power BI entregava a identidade visual definida no mockup.
 
-<!-- TROCAR pelo print do dashboard real quando disponível -->
-![Mockup do dashboard](docs/img/mockup.png)
+![Dashboard de operações e CX](docs/img/dashboard-pagina-1.png)
 
-> A imagem acima é o **mockup** aprovado antes da construção. O relatório final segue esse layout.
+![Detalhe de pedidos](docs/img/dashboard-pagina-2.png)
 
 ---
 
@@ -51,9 +50,11 @@ O projeto seguiu a metodologia de [Gabriela Costa](https://www.linkedin.com/puls
 
 **4. Mockup** — identidade visual aplicada, aprovado antes de qualquer linha de código.
 
+![Mockup](docs/img/mockup.png)
+
 **5. Construção** — modelo dimensional, medidas DAX e os visuais customizados.
 
-📄 **[Documentação completa do dashboard](<!-- LINK DA DOC -->)** — objetivo, fontes, transformações, modelo dimensional, medidas e controle de acesso.
+📄 **[Documentação completa do dashboard](https://docs.google.com/document/d/1awJ2zWBg8JRzXyQOTPRkgzlLG4Ei78oG0qNuYDhUPuo/edit?usp=sharing)** — objetivo, fontes, transformações, modelo dimensional, medidas e controle de acesso. A versão em Markdown, versionada junto do projeto, está em [`docs/documentacao-dashboard.md`](docs/documentacao-dashboard.md).
 
 ## Os visuais customizados
 
@@ -61,14 +62,16 @@ O mockup definiu uma identidade que os visuais nativos não alcançam: cantos ar
 
 | Visual | Função |
 |---|---|
-| `tabelaOlist` | Tabela com busca, colunas congeladas, totais configuráveis e destaque de status em pill |
-| `barrasOlist` | Barras e colunas com combo, eixo duplo, Top N, linha de referência e barras em pill |
-| `cardsOlist` | Linha de cards de KPI, um por medida, com variantes de destaque |
-| `filtroOlist` | Filtro em pill com busca e seleção múltipla, aplicando filtro real no relatório |
-| `cabecalhoOlist` | Título com sobretítulo azul |
-| `botaoVoltarOlist` | Link "voltar" com a identidade visual |
-| `temaOlist` | Interruptor claro/escuro, sincronizável entre páginas |
-| `fundoOlist` | Bloco de fundo que muda de cor com o tema |
+| [`tabelaOlist`](Pbiviz/tabelaOlist/README.md) | Tabela com busca, colunas congeladas, totais configuráveis e destaque de status em pill |
+| [`barrasOlist`](Pbiviz/barrasOlist/README.md) | Barras e colunas com combo, eixo duplo, Top N, linha de referência e barras em pill |
+| [`cardsOlist`](Pbiviz/cardsOlist/README.md) | Linha de cards de KPI, um por medida, com variantes de destaque |
+| [`filtroOlist`](Pbiviz/filtroOlist/README.md) | Filtro em pill com busca e seleção múltipla, aplicando filtro real no relatório |
+| [`cabecalhoOlist`](Pbiviz/cabecalhoOlist/README.md) | Título com sobretítulo azul |
+| [`botaoVoltarOlist`](Pbiviz/botaoVoltarOlist/README.md) | Link "voltar" com a identidade visual |
+| [`temaOlist`](Pbiviz/temaOlist/README.md) | Interruptor claro/escuro, sincronizável entre páginas |
+| [`fundoOlist`](Pbiviz/fundoOlist/README.md) | Bloco de fundo que muda de cor com o tema |
+
+Cada um tem README próprio documentando decisões de implementação e limitações conhecidas — incluindo as que custaram caro, como o `position: fixed` que não funciona dentro do canvas transformado do Power BI Desktop, ou por que o filtro aceita apenas um campo por instância.
 
 Todos em **TypeScript**, com LESS para estilo, D3 onde há desenho vetorial, e Jest cobrindo a lógica pura. O tema claro/escuro é compartilhado entre todos por uma única medida DAX.
 
@@ -92,8 +95,19 @@ git clone https://github.com/deividgoulart/bi-project-olist.git
 ```
 
 1. Abra `dashboard/portifolio.pbip` no Power BI Desktop.
-2. Importe os oito `.pbiviz` em **Inserir → Mais visuais → Importar visual de um arquivo**.
-3. Os CSVs estão em `data/`. As consultas do Power Query apontam para um caminho local — ajuste-o para a sua pasta, ou troque por `Web.Contents` apontando para este repositório, que é o que permite atualizar no Power BI Service sem gateway.
+2. Importe os oito `.pbiviz` da pasta `Pbiviz/` em **Inserir → Mais visuais → Importar visual de um arquivo**.
+3. Na primeira atualização o Power BI pede credencial da fonte web: escolha **Anônimo**.
+
+As consultas leem os CSVs deste repositório por HTTP (`Web.Contents` sobre `raw.githubusercontent.com`), não de caminho local — é isso que permite publicar no Power BI Service e atualizar sem gateway.
+
+Para desenvolver os visuais:
+
+```bash
+cd Pbiviz/tabelaOlist
+npm install
+npm start     # modo desenvolvedor, conecta no Power BI Desktop
+npm test      # Jest
+```
 
 ## Dados
 

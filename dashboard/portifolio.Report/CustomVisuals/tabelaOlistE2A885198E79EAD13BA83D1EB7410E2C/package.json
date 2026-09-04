@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0.0",
+  "author": {
+    "name": "Deivid",
+    "email": "deividgoulartm@hotmail.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/tabelaOlistE2A885198E79EAD13BA83D1EB7410E2C.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "tabelaOlistE2A885198E79EAD13BA83D1EB7410E2C",
+    "name": "tabelaOlist",
+    "displayName": "tabelaOlist",
+    "version": "1.0.0.0",
+    "description": "Tabela customizada com a identidade visual Olist, construída para o portfólio de BI Olist Brazilian E-Commerce.",
+    "supportUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "gitHubUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

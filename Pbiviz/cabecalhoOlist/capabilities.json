@@ -1,0 +1,35 @@
+{
+  "dataRoles": [
+    {
+      "displayName": "Modo Claro/Escuro (medida)",
+      "name": "modoVisual",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [{ "modoVisual": { "max": 1 } }],
+      "categorical": {
+        "values": {
+          "select": [{ "for": { "in": "modoVisual" } }]
+        }
+      }
+    }
+  ],
+  "objects": {
+    "headerStyle": {
+      "displayName": "Título",
+      "properties": {
+        "eyebrowText": {
+          "displayName": "Texto pequeno (acima do título)",
+          "type": { "text": true }
+        },
+        "titleText": {
+          "displayName": "Título",
+          "type": { "text": true }
+        }
+      }
+    }
+  },
+  "privileges": []
+}

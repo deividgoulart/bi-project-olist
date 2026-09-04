@@ -1,0 +1,143 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "6733948091eabc921480",
+  "displayName": "Detalhe de pedidos",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ecfe817bb81f3fcbc3ab",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dimVendedor"
+              }
+            },
+            "Property": "seller_name"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "11fbfa23dabd03d478c2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dimCliente"
+              }
+            },
+            "Property": "customer_state"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "34ec3e5ecb48a9e41963",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dimCalendario"
+              }
+            },
+            "Property": "Mês"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "ede760c2d9225f70a20a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dimProduto"
+              }
+            },
+            "Property": "product_category_name"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "f1eb2d879949c99527e3",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "ffd181d42735633e62d9",
+        "boundFilter": "ecfe817bb81f3fcbc3ab",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dimVendedor"
+              }
+            },
+            "Property": "seller_name"
+          }
+        }
+      },
+      {
+        "name": "b7babc0627630c7dd3b3",
+        "boundFilter": "11fbfa23dabd03d478c2",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dimCliente"
+              }
+            },
+            "Property": "customer_state"
+          }
+        }
+      },
+      {
+        "name": "1f2d25ee2d1c4f419ec4",
+        "boundFilter": "34ec3e5ecb48a9e41963",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dimCalendario"
+              }
+            },
+            "Property": "Mês"
+          }
+        }
+      },
+      {
+        "name": "da9315dd55e93917e7eb",
+        "boundFilter": "ede760c2d9225f70a20a",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dimProduto"
+              }
+            },
+            "Property": "product_category_name"
+          }
+        }
+      }
+    ],
+    "acceptsFilterContext": "None"
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "e0427146b7c185c1b675",
+      "target": "843268ee0b2f3d111498",
+      "type": "NoFilter"
+    }
+  ]
+}

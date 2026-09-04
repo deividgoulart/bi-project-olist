@@ -1,0 +1,165 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "9315a8e22f54948f3bc8",
+  "position": {
+    "x": 903,
+    "y": 18.805970149253731,
+    "z": 7000,
+    "height": 243.58208955223881,
+    "width": 280.29850746268659,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "filtroOlistA11481BC65E33DF73612FD4532826856",
+    "query": {
+      "queryState": {
+        "modoVisual": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Modo Visual"
+                }
+              },
+              "queryRef": "Medidas.Modo Visual",
+              "nativeQueryRef": "Modo Visual"
+            }
+          ]
+        },
+        "categoria": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimProduto"
+                    }
+                  },
+                  "Property": "product_category_name"
+                }
+              },
+              "queryRef": "dimProduto.product_category_name",
+              "nativeQueryRef": "Categoria",
+              "displayName": "Categoria"
+            }
+          ]
+        },
+        "campo1": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimProduto"
+                    }
+                  },
+                  "Property": "product_category_name"
+                }
+              },
+              "queryRef": "dimProduto.product_category_name",
+              "nativeQueryRef": "Categoria",
+              "displayName": "Categoria"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Filtro Categoria'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0.0",
+  "author": {
+    "name": "Deivid",
+    "email": "deividgoulartm@hotmail.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/filtroOlistA11481BC65E33DF73612FD4532826856.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "filtroOlistA11481BC65E33DF73612FD4532826856",
+    "name": "filtroOlist",
+    "displayName": "filtroOlist",
+    "version": "1.0.0.0",
+    "description": "Pill de filtro com busca e seleção múltipla, com a identidade visual Olist.",
+    "supportUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "gitHubUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

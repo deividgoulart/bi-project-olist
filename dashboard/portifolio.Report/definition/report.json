@@ -1,0 +1,157 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": {
+        "visual": "1.8.95",
+        "report": "2.0.95",
+        "page": "1.3.95"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "htmlContent443BE3AD55E043BF878BED274D3A6855"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "botaoVoltarOlistEC58C61DF3DEDA80EADC89FDA1DC722F",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "botaoVoltarOlistEC58C61DF3DEDA80EADC89FDA1DC722F.pbiviz.json",
+          "path": "botaoVoltarOlistEC58C61DF3DEDA80EADC89FDA1DC722F.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "cabecalhoOlist0CC2DFC6431062AAFC5FECB396191431",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "cabecalhoOlist0CC2DFC6431062AAFC5FECB396191431.pbiviz.json",
+          "path": "cabecalhoOlist0CC2DFC6431062AAFC5FECB396191431.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "cardsOlist7FBE0DCCCE1900409F3080455C64F320",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "cardsOlist7FBE0DCCCE1900409F3080455C64F320.pbiviz.json",
+          "path": "cardsOlist7FBE0DCCCE1900409F3080455C64F320.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "fundoOlist9DFE50B59E5C277C801F5729B542C112",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "fundoOlist9DFE50B59E5C277C801F5729B542C112.pbiviz.json",
+          "path": "fundoOlist9DFE50B59E5C277C801F5729B542C112.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "filtroOlistA11481BC65E33DF73612FD4532826856",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "filtroOlistA11481BC65E33DF73612FD4532826856.pbiviz.json",
+          "path": "filtroOlistA11481BC65E33DF73612FD4532826856.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "temaOlist28FAEEB70399E258A6995B9328A7FB8E",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "temaOlist28FAEEB70399E258A6995B9328A7FB8E.pbiviz.json",
+          "path": "temaOlist28FAEEB70399E258A6995B9328A7FB8E.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "barrasOlist266CF04608031ABF2F6A7C51337656DD",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "barrasOlist266CF04608031ABF2F6A7C51337656DD.pbiviz.json",
+          "path": "barrasOlist266CF04608031ABF2F6A7C51337656DD.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "tabelaOlistE2A885198E79EAD13BA83D1EB7410E2C",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "tabelaOlistE2A885198E79EAD13BA83D1EB7410E2C.pbiviz.json",
+          "path": "tabelaOlistE2A885198E79EAD13BA83D1EB7410E2C.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true,
+    "enableDeveloperMode": true,
+    "customMemoryLimit": "1048576",
+    "customTimeoutLimit": "225"
+  }
+}

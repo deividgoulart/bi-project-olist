@@ -1,0 +1,45 @@
+{
+  "supportsSynchronizingFilterState": true,
+  "dataRoles": [
+    { "displayName": "Campo", "name": "campo1", "kind": "Grouping" },
+    { "displayName": "Modo Claro/Escuro (medida)", "name": "modoVisual", "kind": "Measure" }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [{ "campo1": { "max": 1 }, "modoVisual": { "max": 1 } }],
+      "categorical": {
+        "categories": { "for": { "in": "campo1" }, "dataReductionAlgorithm": { "top": { "count": 30000 } } },
+        "values": { "select": [{ "for": { "in": "modoVisual" } }] }
+      }
+    }
+  ],
+  "objects": {
+    "barStyle": {
+      "displayName": "Barra",
+      "properties": {
+        "openUp": {
+          "displayName": "Abrir a lista para cima",
+          "type": { "bool": true }
+        }
+      }
+    },
+    "filterStyle": {
+      "displayName": "Filtro",
+      "properties": {
+        "label": {
+          "displayName": "Rótulo (em branco = nome do campo)",
+          "type": { "text": true }
+        }
+      }
+    },
+    "general": {
+      "displayName": "General",
+      "properties": {
+        "filter": {
+          "type": { "filter": true }
+        }
+      }
+    }
+  },
+  "privileges": []
+}

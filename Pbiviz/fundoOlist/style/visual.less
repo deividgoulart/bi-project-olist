@@ -1,0 +1,26 @@
+// Sem fonte embutida aqui (diferente dos outros visuais Olist) — este
+// visual não renderiza nenhum texto, só uma cor de fundo sólida.
+
+// Pensado pra cobrir a página inteira e ficar mandado pra trás de todos os
+// outros visuais (clique direito no visual > Enviar para trás) — assim o
+// fundo do relatório muda de cor dinamicamente junto com o resto (os outros
+// visuais dessa família já ficam com fundo transparente por padrão, então
+// deixam essa cor aparecer por baixo). Por isso, ao contrário de tabelaOlist/
+// barrasOlist/cardsOlist, aqui NÃO tem borda/raio/sombra de cartão — é só um
+// retângulo chapado, do jeito que o fundo real de uma página seria.
+.visual-root {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: var(--ds-color-surface-sunken, #F4F6FC);
+
+    // Este visual é decoração pura: cobre a página inteira, fica atrás de
+    // tudo e não tem nada com que interagir. Sem isto, qualquer clique numa
+    // área "vazia" da página cai nele, que é o visual mais embaixo — e o
+    // Power BI o seleciona, desenhando contorno de seleção e cabeçalho em
+    // cima do fundo. "pointer-events: none" faz o conteúdo não reagir ao
+    // mouse. ATENÇÃO: isto NÃO impede o host de selecionar o visual (o
+    // contorno é desenhado pelo Power BI, fora do alcance do código do
+    // visual) — para isso, ver "Limitações conhecidas" no README.
+    pointer-events: none;
+}

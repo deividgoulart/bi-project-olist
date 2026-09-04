@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0.0",
+  "author": {
+    "name": "Deivid",
+    "email": "deividgoulartm@hotmail.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/fundoOlist9DFE50B59E5C277C801F5729B542C112.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "fundoOlist9DFE50B59E5C277C801F5729B542C112",
+    "name": "fundoOlist",
+    "displayName": "fundoOlist",
+    "version": "1.0.0.0",
+    "description": "Bloco de cor de fundo dinâmico, para simular um fundo de página que muda de tema junto com o resto do dashboard.",
+    "supportUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "gitHubUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+relationship bc0bca00-f01c-0df7-9c1f-d7bc2390423e
+	crossFilteringBehavior: bothDirections
+	fromColumn: fatoPedidos.customer_id
+	toColumn: dimCliente.customer_id
+
+relationship 366a6ca6-1114-ebda-279e-121d0495a0c3
+	crossFilteringBehavior: bothDirections
+	securityFilteringBehavior: bothDirections
+	fromColumn: fatoItensPedido.order_id
+	toColumn: fatoPedidos.order_id
+
+relationship c2e52b98-efa4-825d-228d-3b5b255ca43f
+	fromColumn: fatoItensPedido.product_id
+	toColumn: dimProduto.product_id
+
+relationship 8524c2f1-8c6f-e873-1268-83fb3e061e82
+	fromColumn: fatoItensPedido.seller_id
+	toColumn: dimVendedor.seller_id
+
+relationship 2860df77-0c2f-d27d-2a5e-15a907f5f459
+	fromColumn: fatoPedidos.order_delivered_customer_date
+	toColumn: dimCalendario.Date
+

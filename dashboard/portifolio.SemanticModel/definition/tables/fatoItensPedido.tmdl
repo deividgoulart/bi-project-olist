@@ -1,0 +1,88 @@
+table fatoItensPedido
+	lineageTag: 70600459-c68c-4230-8530-c3d5389b3d51
+
+	column order_id
+		dataType: string
+		lineageTag: f8ebe4ac-8af3-48fa-9e4e-6b554435ea4a
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		isHidden
+		lineageTag: 76d52cd8-8658-4c14-8ea7-e42cd209bc79
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		isHidden
+		lineageTag: 6d939822-a2a4-42ea-a4cf-661f09229508
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Categoria do produto trazida para o grão do item, evitando cross-join com order_id em visuais sem medida.
+	column 'Categoria do Produto' = RELATED(dimProduto[product_category_name])
+		displayFolder: Atributos de Produto
+		lineageTag: 53bb0d6d-d6ab-4946-968f-5c02f5ffe9dd
+
+	/// Nome do vendedor trazido para o grão do item via RELATED (evita cross-join com order_id em visuais sem medida).
+	column 'Nome do Vendedor' = RELATED(dimVendedor[seller_name])
+		displayFolder: Atributos de Vendedor
+		lineageTag: 55fc6e17-30d6-46e1-af04-118d2be4b9db
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data estimada de entrega do pedido, trazida para o grão do item via RELATED (evita cross-join com order_id em visuais sem medida).
+	column 'Data Estimada de Entrega' = RELATED(fatoPedidos[order_estimated_delivery_date])
+		formatString: dd/mm/yy
+		displayFolder: Atributos de Pedido
+		lineageTag: 464ff8cd-6de6-42b4-90ae-cf7781c0d968
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// Data real de entrega ao cliente, trazida para o grão do item via RELATED (evita cross-join com order_id em visuais sem medida).
+	column 'Data de Entrega Real' = RELATED(fatoPedidos[order_delivered_customer_date])
+		formatString: dd/mm/yy
+		displayFolder: Atributos de Pedido
+		lineageTag: d581a551-5c3c-4ef4-a480-26ec6dcf6a74
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// Status de atraso do pedido, trazido de fatoPedidos[dias_atraso] via RELATED. Valores: 'No prazo' ou 'X dias'.
+	column 'Dias Atrasados' = RELATED(fatoPedidos[dias_atraso])
+		displayFolder: Atributos de Pedido
+		lineageTag: 307ebfe8-d065-4957-a31e-f1c9c0dfa2b9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fatoItensPedido = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://raw.githubusercontent.com/deividgoulart/bi-project-olist/main/data/", [RelativePath="olist_order_items_dataset.csv"]),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"order_id", type text}, {"order_item_id", Int64.Type}, {"product_id", type text}, {"seller_id", type text}, {"shipping_limit_date", type datetime}, {"price", Int64.Type}, {"freight_value", Int64.Type}}),
+				    // Filtrar para apenas pedidos entregues
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Tipo Alterado", {"order_id"}, fatoPedidos, {"order_id"}, "fatoPedidos", JoinKind.Inner),
+				    #"Coluna Removida" = Table.RemoveColumns(#"Consultas Mescladas",{"fatoPedidos", "shipping_limit_date", "price", "freight_value", "order_item_id"})
+				in
+				    #"Coluna Removida"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

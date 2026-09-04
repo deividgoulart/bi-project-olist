@@ -1,0 +1,21 @@
+{
+  "dataRoles": [
+    {
+      "displayName": "Modo Claro/Escuro (medida)",
+      "name": "modoVisual",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [{ "modoVisual": { "max": 1 } }],
+      "categorical": {
+        "values": {
+          "select": [{ "for": { "in": "modoVisual" } }]
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "privileges": []
+}

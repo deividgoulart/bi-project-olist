@@ -1,0 +1,49 @@
+{
+  "dataRoles": [
+    {
+      "displayName": "Valores",
+      "name": "valores",
+      "kind": "Measure"
+    },
+    {
+      "displayName": "Modo Claro/Escuro (medida)",
+      "name": "modoVisual",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [{ "valores": { "min": 0 }, "modoVisual": { "max": 1 } }],
+      "categorical": {
+        "values": {
+          "select": [
+            { "for": { "in": "valores" } },
+            { "for": { "in": "modoVisual" } }
+          ]
+        }
+      }
+    }
+  ],
+  "objects": {
+    "cardStyle": {
+      "displayName": "Cartão por Medida",
+      "properties": {
+        "label": {
+          "displayName": "Rótulo (em branco = nome da medida)",
+          "type": { "text": true }
+        },
+        "variant": {
+          "displayName": "Estilo",
+          "type": {
+            "enumeration": [
+              { "value": "normal", "displayName": "Padrão" },
+              { "value": "atencao", "displayName": "Atenção (destaque âmbar)" },
+              { "value": "destaque", "displayName": "Destaque (fundo azul)" }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "privileges": []
+}

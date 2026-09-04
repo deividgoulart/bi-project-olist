@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0.0",
+  "author": {
+    "name": "Deivid",
+    "email": "deividgoulartm@hotmail.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/botaoVoltarOlistEC58C61DF3DEDA80EADC89FDA1DC722F.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "botaoVoltarOlistEC58C61DF3DEDA80EADC89FDA1DC722F",
+    "name": "botaoVoltarOlist",
+    "displayName": "botaoVoltarOlist",
+    "version": "1.0.0.0",
+    "description": "Link decorativo Voltar com a identidade visual Olist.",
+    "supportUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "gitHubUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

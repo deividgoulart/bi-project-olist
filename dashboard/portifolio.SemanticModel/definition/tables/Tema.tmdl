@@ -1,0 +1,18 @@
+table Tema
+	lineageTag: bdc0f9d9-b3ec-43cf-9e20-f7355523da83
+
+	column Modo
+		lineageTag: b87a3efd-2820-4f39-b7c6-79a95a9998a4
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Tema = calculated
+		mode: import
+		source = ```
+				{"Escuro", "Claro"} 
+				```
+
+	annotation PBI_Id = d2bb0fecd8084312888530a5ef77e426
+

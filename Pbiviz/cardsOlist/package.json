@@ -1,0 +1,31 @@
+{
+  "name": "visual",
+  "description": "default_template_value",
+  "version": "1.0.0.0",
+  "repository": {
+    "type": "default_template_value",
+    "url": "default_template_value"
+  },
+  "license": "MIT",
+  "scripts": {
+    "pbiviz": "pbiviz",
+    "start": "pbiviz start",
+    "package": "pbiviz package",
+    "lint": "npx eslint .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "powerbi-visuals-api": "5.11.1",
+    "powerbi-visuals-utils-formattingmodel": "6.0.4",
+    "powerbi-visuals-utils-formattingutils": "^6.1.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "eslint": "^9.11.1",
+    "eslint-plugin-powerbi-visuals": "^1.0.0",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.12",
+    "typescript": "5.5.4"
+  }
+}

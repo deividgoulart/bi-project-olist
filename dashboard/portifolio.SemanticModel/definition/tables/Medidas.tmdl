@@ -1,0 +1,113 @@
+table Medidas
+	lineageTag: c54169e4-7c01-4d46-b2a9-f696e70ea890
+
+	/// Média de dias entre a compra e a entrega ao cliente (fatoPedidos[dias_entrega]) no contexto de filtro atual.
+	measure 'Tempo Médio de Entrega' = AVERAGE(fatoPedidos[dias_entrega])
+		formatString: 0.0
+		displayFolder: Entrega e Prazo
+		lineageTag: 0c17be0b-5692-48d8-b18d-42254120ee21
+
+	/// Percentual de pedidos com fatoPedidos[atrasado] = 1 (entregues após a data estimada) sobre o total de pedidos no contexto.
+	measure '% Pedidos Atrasados' =
+			
+			DIVIDE(
+			    CALCULATE(COUNTROWS(fatoPedidos), fatoPedidos[atrasado] = 1),
+			    COUNTROWS(fatoPedidos)
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Entrega e Prazo
+		lineageTag: bbdfd282-3199-4e6e-8e0b-b97096fd7a68
+
+	/// Nota média das avaliações dos pedidos (fatoPedidos[review_score], escala 1 a 5) no contexto de filtro atual.
+	measure 'Score Médio' = AVERAGE(fatoPedidos[review_score])
+		formatString: 0.0
+		displayFolder: Avaliação e Satisfação
+		lineageTag: f4b582a6-5e82-434a-9b97-5c590e5db9ba
+
+	/// Percentual de pedidos com nota de avaliação 2 ou menos sobre o total de pedidos no contexto.
+	measure '% Avaliações Ruins' =
+			
+			DIVIDE(
+			    CALCULATE(COUNTROWS(fatoPedidos), fatoPedidos[review_score] <= 2),
+			    COUNTROWS(fatoPedidos)
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Avaliação e Satisfação
+		lineageTag: 4fe9ecf0-c7b7-4625-9914-e0b9d4ff0ba2
+
+	/// Percentual de pedidos entregues no prazo E com nota de avaliação 4 ou 5 — indicador combinado de operação e satisfação.
+	measure '% No Prazo com Nota 4-5' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(fatoPedidos),
+			        fatoPedidos[atrasado] = 0,
+			        fatoPedidos[review_score] >= 4
+			    ),
+			    COUNTROWS(fatoPedidos)
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Avaliação e Satisfação
+		lineageTag: a0ae6f6c-d991-422f-abbb-d58b7a699c73
+
+	/// Medida técnica que alimenta o tema claro/escuro a partir da tabela desconectada Tema. O ISEMPTY('fatoItensPedido') é proposital — garante BLANK() quando não há correspondência, preservando a eliminação de linhas do SUMMARIZECOLUMNS. Não simplificar essa checagem.
+	measure 'Modo Visual' =
+			
+			IF(
+			    ISEMPTY('fatoItensPedido'),
+			    BLANK(),
+			    IF(SELECTEDVALUE('Tema'[Modo]) = "Escuro", "dark", "light")
+			)
+		displayFolder: Apoio a Visual
+		lineageTag: 2f8e000f-09cb-4f65-ab43-03e5c0dc2379
+
+	/// Indica se o recorte de filtros atual não retorna nenhum pedido (Score Médio e % Avaliações Ruins ficam em branco/zero nesse caso). Retorna 'Sem dados' ou 'Com dados' — usar para tratar estados vazios, não para agregação.
+	measure 'Sem Dados de Avaliação' =
+			
+			VAR ScoreZerado = ISBLANK([Score Médio]) || [Score Médio] = 0
+			VAR RuinsZerado = ISBLANK([% Avaliações Ruins]) || [% Avaliações Ruins] = 0
+			RETURN
+			    IF(ScoreZerado && RuinsZerado, "Sem dados", "Com dados")
+		displayFolder: Avaliação e Satisfação
+		lineageTag: b6b2f8d4-cb27-4881-98f7-875013030e8f
+
+	/// Contagem de pedidos distintos (fatoPedidos[order_id]) no contexto de filtro.
+	measure 'Quantidade de Pedidos' = DISTINCTCOUNT(fatoPedidos[order_id])
+		formatString: 0
+		displayFolder: Volume
+		lineageTag: 280d13b1-21d9-48c9-a6bb-38b8b3d4a010
+
+	/// Versão medida de Status Atraso, para uso em formatação condicional. Usa SELECTEDVALUE para pegar o valor da linha atual do visual (retorna em branco se o contexto tiver mais de um valor, ex. total).
+	measure 'Status Atraso' =
+			
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(SELECTEDVALUE(fatoItensPedido[Dias Atrasados])), BLANK(),
+			    SELECTEDVALUE(fatoItensPedido[Dias Atrasados]) = "No prazo", "Positivo",
+			    "Negativo"
+			)
+		displayFolder: Apoio a Visual
+		lineageTag: a0a82a8b-00ef-44e6-a7d8-39278c2db7e1
+
+	column 'Coluna 1'
+		dataType: string
+		isHidden
+		lineageTag: e529806e-fdb9-451e-b03f-d33a68b3c81b
+		summarizeBy: none
+		sourceColumn: Coluna 1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

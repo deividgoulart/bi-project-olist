@@ -1,0 +1,122 @@
+table fatoPedidos
+	lineageTag: 33cede3e-6ace-4804-9b3f-21ae73830c6c
+
+	column order_id
+		dataType: string
+		lineageTag: 1e9a17b3-dbb0-4ce1-991b-f567ee4e7fef
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: 1e688715-aa50-4fd0-8f33-e5aba92113b9
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_delivered_customer_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 12f6fa2e-1bd5-46d5-b281-b06df69a1516
+		summarizeBy: none
+		sourceColumn: order_delivered_customer_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_estimated_delivery_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 31b6bc96-c8e9-4817-bcac-ccd1819c6721
+		summarizeBy: none
+		sourceColumn: order_estimated_delivery_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column review_score
+		dataType: double
+		lineageTag: 3f5600a0-1af0-40d7-b7ff-9da8da5f4891
+		summarizeBy: sum
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column dias_entrega
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ef2189d-75c5-40bf-8960-5312b361d1e8
+		summarizeBy: sum
+		sourceColumn: dias_entrega
+
+		annotation SummarizationSetBy = Automatic
+
+	column atrasado
+		dataType: int64
+		formatString: 0
+		lineageTag: aa9b6aa6-be41-44c7-a7b6-bb0b5e89d495
+		summarizeBy: sum
+		sourceColumn: atrasado
+
+		annotation SummarizationSetBy = Automatic
+
+	column dias_atraso
+		dataType: string
+		lineageTag: 9f94dfad-2b93-4e43-8eb2-1f1018d3f425
+		summarizeBy: none
+		sourceColumn: dias_atraso
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_purchase_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 0b5dc591-9ec3-470b-aca1-085f9403690d
+		summarizeBy: none
+		sourceColumn: order_purchase_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fatoPedidos = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://raw.githubusercontent.com/deividgoulart/bi-project-olist/main/data/", [RelativePath="olist_orders_dataset.csv"]),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"order_id", type text}, {"customer_id", type text}, {"order_status", type text}, {"order_purchase_timestamp", type datetime}, {"order_approved_at", type datetime}, {"order_delivered_carrier_date", type datetime}, {"order_delivered_customer_date", type datetime}, {"order_estimated_delivery_date", type datetime}}),
+				    // Filtrar apenas para o escopo da análise(pedidos entregues)
+				    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each ([order_status] = "delivered")),
+				    // Excluídos os pedidos sem data de entrega(apenas 8 registros)
+				    #"Linhas Filtradas1" = Table.SelectRows(#"Linhas Filtradas", each [order_delivered_customer_date] <> null and [order_delivered_customer_date] <> ""),
+				    // Adicionar a tabela de reviews
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Linhas Filtradas1", {"order_id"}, olist_order_reviews_dataset, {"order_id"}, "olist_order_reviews_dataset", JoinKind.LeftOuter),
+				    // Expandir a nota do cliente
+				    #"olist_order_reviews_dataset Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "olist_order_reviews_dataset", {"review_score"}, {"review_score"}),
+				    // Filtrar apenas para o escopo da análise(pedidos já avaliados)
+				    #"Linhas Filtradas2" = Table.SelectRows(#"olist_order_reviews_dataset Expandido", each ([review_score] <> null)),
+				    // Criar coluna dias_entrega
+				    #"Personalização Adicionada" = Table.AddColumn(#"Linhas Filtradas2", "dias_entrega", each Duration.Days(Date.From([order_delivered_customer_date]) - Date.From([order_purchase_timestamp]))),
+				    // Criar coluna atrasado
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Personalização Adicionada", "atrasado", each if [order_delivered_customer_date] > [order_estimated_delivery_date] then 1 else 0),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"atrasado", Int64.Type}, {"dias_entrega", Int64.Type}}),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Tipo Alterado1",{"order_id", "customer_id", "order_status", "order_purchase_timestamp", "order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date", "order_estimated_delivery_date", "review_score", "dias_entrega", "atrasado"}),
+				    #"Data Extraída" = Table.TransformColumns(#"Colunas Reordenadas",{{"order_purchase_timestamp", DateTime.Date, type date}, {"order_delivered_customer_date", DateTime.Date, type date}, {"order_estimated_delivery_date", DateTime.Date, type date}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Data Extraída", {"order_purchase_timestamp", "order_purchase_date"}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Colunas Renomeadas", "dias_atraso", each if [atrasado] = 0 then "No prazo" else Text.From(Duration.Days(Date.From([order_delivered_customer_date]) - Date.From([order_estimated_delivery_date]))) & " dias"),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Personalização Adicionada1",{"order_status", "order_approved_at", "order_delivered_carrier_date"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

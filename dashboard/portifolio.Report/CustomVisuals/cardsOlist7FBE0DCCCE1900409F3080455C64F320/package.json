@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0.0",
+  "author": {
+    "name": "Deivid",
+    "email": "deividgoulartm@hotmail.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/cardsOlist7FBE0DCCCE1900409F3080455C64F320.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "cardsOlist7FBE0DCCCE1900409F3080455C64F320",
+    "name": "cardsOlist",
+    "displayName": "cardsOlist",
+    "version": "1.0.0.0",
+    "description": "Fileira de cartões de indicador (KPI) com a identidade visual Olist.",
+    "supportUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "gitHubUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

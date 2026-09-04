@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0.0",
+  "author": {
+    "name": "Deivid",
+    "email": "deividgoulartm@hotmail.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/temaOlist28FAEEB70399E258A6995B9328A7FB8E.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "temaOlist28FAEEB70399E258A6995B9328A7FB8E",
+    "name": "temaOlist",
+    "displayName": "temaOlist",
+    "version": "1.0.0.0",
+    "description": "Switch para alternar o relatório entre tema claro e escuro.",
+    "supportUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "gitHubUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

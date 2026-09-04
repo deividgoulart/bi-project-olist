@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0.0",
+  "author": {
+    "name": "Deivid",
+    "email": "deividgoulartm@hotmail.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/cabecalhoOlist0CC2DFC6431062AAFC5FECB396191431.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "cabecalhoOlist0CC2DFC6431062AAFC5FECB396191431",
+    "name": "cabecalhoOlist",
+    "displayName": "cabecalhoOlist",
+    "version": "1.0.0.0",
+    "description": "Bloco de título do dashboard com a identidade visual Olist (texto pequeno azul acima do título grande).",
+    "supportUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "gitHubUrl": "https://github.com/deividgoulart/bi-project-olist",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

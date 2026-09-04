@@ -1,0 +1,56 @@
+table dimCalendario
+	lineageTag: 11c77ad7-94a5-4a7b-b387-8324151df22d
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: 1fb89103-f797-4838-b0ed-1dbc1658b4ab
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês Número'
+		formatString: 0
+		lineageTag: cb584eab-dbc1-4fe7-89c1-472c2f90c396
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mês Número]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		lineageTag: 6782cb63-973e-4f5c-b5fe-e8c944992429
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mês]
+		sortByColumn: 'Mês Número'
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoMês
+		lineageTag: f1511fed-8bd0-44df-a8ad-2ceabf5dcbbb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AnoMês]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimCalendario = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    CALENDAR(
+				        MIN(fatoPedidos[order_purchase_date]),
+				        MAX(fatoPedidos[order_purchase_date])
+				    ),
+				    "Mês Número", MONTH([Date]),
+				    "Mês", FORMAT([Date], "MMM"),
+				    "AnoMês", FORMAT([Date], "YYYY-MM")
+				)
+
+	annotation PBI_Id = a0212286e580470faab3d73a5c533426
+

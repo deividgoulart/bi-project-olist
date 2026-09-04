@@ -1,0 +1,305 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "ed477e7ee255cfc58820",
+  "position": {
+    "x": 662,
+    "y": 223,
+    "z": 4000,
+    "height": 265.53688823959095,
+    "width": 592,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "barrasOlist266CF04608031ABF2F6A7C51337656DD",
+    "query": {
+      "queryState": {
+        "valores": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "% Pedidos Atrasados"
+                }
+              },
+              "queryRef": "Medidas.% Pedidos Atrasados",
+              "nativeQueryRef": "% atraso",
+              "displayName": "% atraso"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Score Médio"
+                }
+              },
+              "queryRef": "Medidas.Score Médio",
+              "nativeQueryRef": "score médio",
+              "displayName": "score médio"
+            }
+          ]
+        },
+        "categoria": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimCliente"
+                    }
+                  },
+                  "Property": "customer_state"
+                }
+              },
+              "queryRef": "dimCliente.customer_state",
+              "nativeQueryRef": "UF",
+              "displayName": "UF"
+            }
+          ]
+        },
+        "modoVisual": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Modo Visual"
+                }
+              },
+              "queryRef": "Medidas.Modo Visual",
+              "nativeQueryRef": "Modo Visual"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "% Pedidos Atrasados"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "seriesStyle": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#53B4B9'"
+                    }
+                  }
+                }
+              }
+            },
+            "othersAggregation": {
+              "expr": {
+                "Literal": {
+                  "Value": "'average'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Score Médio"
+          }
+        },
+        {
+          "properties": {
+            "axis": {
+              "expr": {
+                "Literal": {
+                  "Value": "'secondary'"
+                }
+              }
+            },
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#4C86FF'"
+                    }
+                  }
+                }
+              }
+            },
+            "othersAggregation": {
+              "expr": {
+                "Literal": {
+                  "Value": "'average'"
+                }
+              }
+            },
+            "chartType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'line'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.% Pedidos Atrasados"
+          }
+        }
+      ],
+      "chartTitle": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'% atraso e score por UF'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "chartStyle": [
+        {
+          "properties": {
+            "maxItemsVisible": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "axisStyle": [
+        {
+          "properties": {
+            "showGridlines": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Gráfico por UF'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

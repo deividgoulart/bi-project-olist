@@ -1,0 +1,10 @@
+# Dependências e artefatos de build dos visuais customizados
+node_modules/
+Pbiviz/*/dist/
+Pbiviz/*/.tmp/
+Pbiviz/*/webpack.statistics.*.html
+Pbiviz/*/.vscode/
+
+# Cache de dados e preferências locais do Power BI (PBIP)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

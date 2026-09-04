@@ -1,0 +1,244 @@
+{
+  "dataRoles": [
+    {
+      "displayName": "Categoria (eixo)",
+      "name": "categoria",
+      "kind": "Grouping"
+    },
+    {
+      "displayName": "Legenda / Série (opcional)",
+      "name": "legenda",
+      "kind": "Grouping"
+    },
+    {
+      "displayName": "Valores",
+      "name": "valores",
+      "kind": "Measure"
+    },
+    {
+      "displayName": "Modo Claro/Escuro (medida)",
+      "name": "modoVisual",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        { "categoria": { "max": 1 }, "legenda": { "max": 1 }, "valores": { "max": 1 }, "modoVisual": { "max": 1 } },
+        { "categoria": { "max": 1 }, "legenda": { "max": 0 }, "valores": { "min": 0 }, "modoVisual": { "max": 1 } }
+      ],
+      "categorical": {
+        "categories": {
+          "for": { "in": "categoria" },
+          "dataReductionAlgorithm": { "top": { "count": 5000 } }
+        },
+        "values": {
+          "group": {
+            "by": "legenda",
+            "select": [
+              { "for": { "in": "valores" } },
+              { "for": { "in": "modoVisual" } }
+            ],
+            "dataReductionAlgorithm": { "top": { "count": 100 } }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {
+    "chartTitle": {
+      "displayName": "Título",
+      "properties": {
+        "show": {
+          "displayName": "Mostrar título",
+          "type": { "bool": true }
+        },
+        "text": {
+          "displayName": "Texto do título",
+          "type": { "text": true }
+        }
+      }
+    },
+    "seriesStyle": {
+      "displayName": "Cor por Série/Categoria",
+      "properties": {
+        "fill": {
+          "displayName": "Cor",
+          "type": { "fill": { "solid": { "color": true } } }
+        },
+        "chartType": {
+          "displayName": "Tipo",
+          "type": {
+            "enumeration": [
+              { "value": "bar", "displayName": "Coluna/Barra" },
+              { "value": "line", "displayName": "Linha" }
+            ]
+          }
+        },
+        "axis": {
+          "displayName": "Eixo",
+          "type": {
+            "enumeration": [
+              { "value": "primary", "displayName": "Primário" },
+              { "value": "secondary", "displayName": "Secundário" }
+            ]
+          }
+        },
+        "othersAggregation": {
+          "displayName": "Agregação em 'Outros' (Top N)",
+          "type": {
+            "enumeration": [
+              { "value": "sum", "displayName": "Soma" },
+              { "value": "average", "displayName": "Média" }
+            ]
+          }
+        },
+        "barFillStyle": {
+          "displayName": "Estilo da barra",
+          "type": {
+            "enumeration": [
+              { "value": "flat", "displayName": "Padrão" },
+              { "value": "pill", "displayName": "Preenchida (estilo mockup)" }
+            ]
+          }
+        }
+      }
+    },
+    "chartStyle": {
+      "displayName": "Estilo do Gráfico",
+      "properties": {
+        "orientation": {
+          "displayName": "Orientação",
+          "type": {
+            "enumeration": [
+              { "value": "colunas", "displayName": "Colunas (vertical)" },
+              { "value": "barras", "displayName": "Barras (horizontal)" }
+            ]
+          }
+        },
+        "seriesMode": {
+          "displayName": "Modo de múltiplas séries",
+          "type": {
+            "enumeration": [
+              { "value": "agrupado", "displayName": "Agrupado (lado a lado)" },
+              { "value": "empilhado", "displayName": "Empilhado" },
+              { "value": "empilhado100", "displayName": "Empilhado 100%" }
+            ]
+          }
+        },
+        "barPadding": {
+          "displayName": "Espaçamento entre barras (%)",
+          "type": { "numeric": true }
+        },
+        "cornerRadius": {
+          "displayName": "Raio dos cantos (px)",
+          "type": { "numeric": true }
+        },
+        "sortMode": {
+          "displayName": "Ordenar por",
+          "type": {
+            "enumeration": [
+              { "value": "nenhum", "displayName": "Padrão da consulta" },
+              { "value": "categoriaAsc", "displayName": "Categoria (A-Z)" },
+              { "value": "categoriaDesc", "displayName": "Categoria (Z-A)" },
+              { "value": "valorAsc", "displayName": "Valor (crescente)" },
+              { "value": "valorDesc", "displayName": "Valor (decrescente)" }
+            ]
+          }
+        },
+        "topN": {
+          "displayName": "Mostrar só as N maiores categorias (0 = todas)",
+          "type": { "numeric": true }
+        },
+        "maxItemsVisible": {
+          "displayName": "Máximo de barras visíveis por vez (0 = todas, sem rolagem)",
+          "type": { "numeric": true }
+        }
+      }
+    },
+    "referenceLine": {
+      "displayName": "Linha de Referência",
+      "properties": {
+        "show": {
+          "displayName": "Mostrar linha de referência",
+          "type": { "bool": true }
+        },
+        "mode": {
+          "displayName": "Tipo",
+          "type": {
+            "enumeration": [
+              { "value": "media", "displayName": "Média dos valores exibidos" },
+              { "value": "fixo", "displayName": "Valor fixo" }
+            ]
+          }
+        },
+        "fixedValue": {
+          "displayName": "Valor fixo (modo 'Valor fixo')",
+          "type": { "numeric": true }
+        },
+        "color": {
+          "displayName": "Cor da linha",
+          "type": { "fill": { "solid": { "color": true } } }
+        }
+      }
+    },
+    "axisStyle": {
+      "displayName": "Eixos",
+      "properties": {
+        "showCategoryAxis": {
+          "displayName": "Mostrar eixo de categoria",
+          "type": { "bool": true }
+        },
+        "showValueAxis": {
+          "displayName": "Mostrar eixo de valores",
+          "type": { "bool": true }
+        },
+        "showGridlines": {
+          "displayName": "Mostrar linhas de grade",
+          "type": { "bool": true }
+        },
+        "axisFontSize": {
+          "displayName": "Tamanho da fonte dos eixos",
+          "type": { "formatting": { "fontSize": true } }
+        }
+      }
+    },
+    "dataLabels": {
+      "displayName": "Rótulos de Dados",
+      "properties": {
+        "show": {
+          "displayName": "Mostrar rótulos",
+          "type": { "bool": true }
+        },
+        "labelFontSize": {
+          "displayName": "Tamanho da fonte",
+          "type": { "formatting": { "fontSize": true } }
+        },
+        "abbreviateNumbers": {
+          "displayName": "Abreviar números grandes (1.2K, 3.4M)",
+          "type": { "bool": true }
+        }
+      }
+    },
+    "legendStyle": {
+      "displayName": "Legenda",
+      "properties": {
+        "show": {
+          "displayName": "Mostrar legenda",
+          "type": { "bool": true }
+        },
+        "position": {
+          "displayName": "Posição",
+          "type": {
+            "enumeration": [
+              { "value": "top", "displayName": "Topo" },
+              { "value": "bottom", "displayName": "Rodapé" },
+              { "value": "right", "displayName": "Direita" }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "privileges": []
+}

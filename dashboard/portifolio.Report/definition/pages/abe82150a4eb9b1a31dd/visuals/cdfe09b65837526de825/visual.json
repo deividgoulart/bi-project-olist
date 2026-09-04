@@ -1,0 +1,412 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "cdfe09b65837526de825",
+  "position": {
+    "x": 662,
+    "y": 506.66666666666669,
+    "z": 2500,
+    "height": 195.86206896551727,
+    "width": 592.18390804597709,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "barrasOlist266CF04608031ABF2F6A7C51337656DD",
+    "query": {
+      "queryState": {
+        "valores": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Score Médio"
+                }
+              },
+              "queryRef": "Medidas.Score Médio",
+              "nativeQueryRef": "score médio",
+              "displayName": "score médio"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "% Avaliações Ruins"
+                }
+              },
+              "queryRef": "Medidas.% Avaliações Ruins",
+              "nativeQueryRef": "% avaliações ruins",
+              "displayName": "% avaliações ruins"
+            }
+          ]
+        },
+        "categoria": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimVendedor"
+                    }
+                  },
+                  "Property": "seller_name"
+                }
+              },
+              "queryRef": "dimVendedor.seller_name",
+              "nativeQueryRef": "seller",
+              "displayName": "seller"
+            }
+          ]
+        },
+        "modoVisual": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Modo Visual"
+                }
+              },
+              "queryRef": "Medidas.Modo Visual",
+              "nativeQueryRef": "Modo Visual"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "Score Médio"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "chartStyle": [
+        {
+          "properties": {
+            "orientation": {
+              "expr": {
+                "Literal": {
+                  "Value": "'barras'"
+                }
+              }
+            },
+            "maxItemsVisible": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            },
+            "sortMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'nenhum'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "seriesStyle": [
+        {
+          "properties": {
+            "othersAggregation": {
+              "expr": {
+                "Literal": {
+                  "Value": "'average'"
+                }
+              }
+            },
+            "barFillStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'pill'"
+                }
+              }
+            },
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E0A857'"
+                    }
+                  }
+                }
+              }
+            },
+            "axis": {
+              "expr": {
+                "Literal": {
+                  "Value": "'secondary'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.% Avaliações Ruins"
+          }
+        },
+        {
+          "properties": {
+            "barFillStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'flat'"
+                }
+              }
+            },
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#53B4B9'"
+                    }
+                  }
+                }
+              }
+            },
+            "othersAggregation": {
+              "expr": {
+                "Literal": {
+                  "Value": "'average'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Score Médio"
+          }
+        }
+      ],
+      "axisStyle": [
+        {
+          "properties": {
+            "showGridlines": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "showValueAxis": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "chartTitle": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Piores sellers'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "legendStyle": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'top'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Gráfico sellers'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "48fac1ae683b2545f51c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Sem Dados de Avaliação"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "m",
+              "Entity": "Medidas",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 0,
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "m"
+                        }
+                      },
+                      "Property": "Sem Dados de Avaliação"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "'Com dados'"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  }
+}

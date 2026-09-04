@@ -1,0 +1,31 @@
+{
+  "dataRoles": [
+    {
+      "displayName": "Modo Claro/Escuro (medida)",
+      "name": "modoVisual",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [{ "modoVisual": { "max": 1 } }],
+      "categorical": {
+        "values": {
+          "select": [{ "for": { "in": "modoVisual" } }]
+        }
+      }
+    }
+  ],
+  "objects": {
+    "buttonStyle": {
+      "displayName": "Botão",
+      "properties": {
+        "label": {
+          "displayName": "Texto",
+          "type": { "text": true }
+        }
+      }
+    }
+  },
+  "privileges": []
+}

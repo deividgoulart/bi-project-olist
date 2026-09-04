@@ -1,0 +1,31 @@
+{
+  "supportsSynchronizingFilterState": true,
+  "dataRoles": [
+    {
+      "displayName": "Campo de tema (2 valores, ex: Tema[Modo])",
+      "name": "categoria",
+      "kind": "Grouping"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "categorical": {
+        "categories": {
+          "for": { "in": "categoria" },
+          "dataReductionAlgorithm": { "top": { "count": 50 } }
+        }
+      }
+    }
+  ],
+  "objects": {
+    "general": {
+      "displayName": "General",
+      "properties": {
+        "filter": {
+          "type": { "filter": true }
+        }
+      }
+    }
+  },
+  "privileges": []
+}

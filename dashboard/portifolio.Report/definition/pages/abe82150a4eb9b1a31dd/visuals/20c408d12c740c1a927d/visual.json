@@ -1,0 +1,263 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "20c408d12c740c1a927d",
+  "position": {
+    "x": 50.237121831561737,
+    "y": 96.287816843826661,
+    "z": 4500,
+    "height": 105.70727718724449,
+    "width": 1202.5511038430091,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "cardsOlist7FBE0DCCCE1900409F3080455C64F320",
+    "query": {
+      "queryState": {
+        "modoVisual": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Modo Visual"
+                }
+              },
+              "queryRef": "Medidas.Modo Visual",
+              "nativeQueryRef": "Modo Visual"
+            }
+          ]
+        },
+        "valores": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Tempo Médio de Entrega"
+                }
+              },
+              "queryRef": "Medidas.Tempo Médio de Entrega",
+              "nativeQueryRef": "tempo médio entrega",
+              "displayName": "tempo médio entrega"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "% Pedidos Atrasados"
+                }
+              },
+              "queryRef": "Medidas.% Pedidos Atrasados",
+              "nativeQueryRef": "% atraso",
+              "displayName": "% atraso"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Score Médio"
+                }
+              },
+              "queryRef": "Medidas.Score Médio",
+              "nativeQueryRef": "score médio",
+              "displayName": "score médio"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "% Avaliações Ruins"
+                }
+              },
+              "queryRef": "Medidas.% Avaliações Ruins",
+              "nativeQueryRef": "% avaliações ruins",
+              "displayName": "% avaliações ruins"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "% No Prazo com Nota 4-5"
+                }
+              },
+              "queryRef": "Medidas.% No Prazo com Nota 4-5",
+              "nativeQueryRef": "% no prazo + nota 4-5",
+              "displayName": "% no prazo + nota 4-5"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "Tempo Médio de Entrega"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "cardStyle": [
+        {
+          "properties": {
+            "variant": {
+              "expr": {
+                "Literal": {
+                  "Value": "'atencao'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.% Pedidos Atrasados"
+          }
+        },
+        {
+          "properties": {
+            "variant": {
+              "expr": {
+                "Literal": {
+                  "Value": "'atencao'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.% Avaliações Ruins"
+          }
+        },
+        {
+          "properties": {
+            "variant": {
+              "expr": {
+                "Literal": {
+                  "Value": "'destaque'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.% No Prazo com Nota 4-5"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cards'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

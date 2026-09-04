@@ -1,0 +1,135 @@
+{
+  "sorting": {
+    "custom": {}
+  },
+  "dataRoles": [
+    {
+      "displayName": "Campos da Tabela",
+      "name": "campos",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "displayName": "Campos da Tooltip (extra, não aparece na tabela)",
+      "name": "camposTooltip",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "displayName": "Modo Claro/Escuro (medida)",
+      "name": "modoVisual",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        { "campos": { "min": 0 }, "modoVisual": { "max": 1 } }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            { "for": { "in": "campos" } },
+            { "for": { "in": "camposTooltip" } },
+            { "for": { "in": "modoVisual" } }
+          ],
+          "dataReductionAlgorithm": { "window": { "count": 30000 } }
+        }
+      }
+    }
+  ],
+  "objects": {
+    "chartTitle": {
+      "displayName": "Título",
+      "properties": {
+        "show": {
+          "displayName": "Mostrar título",
+          "type": { "bool": true }
+        },
+        "text": {
+          "displayName": "Texto do título",
+          "type": { "text": true }
+        }
+      }
+    },
+    "tableStyle": {
+      "displayName": "Comportamento da Tabela",
+      "properties": {
+        "showTotals": {
+          "displayName": "Mostrar totais no rodapé",
+          "type": { "bool": true }
+        },
+        "frozenColumnCount": {
+          "displayName": "Quantidade de colunas congeladas (ao rolar horizontalmente)",
+          "type": { "numeric": true }
+        },
+        "showSearchBox": {
+          "displayName": "Mostrar caixa de busca",
+          "type": { "bool": true }
+        }
+      }
+    },
+    "columnFormatting": {
+      "displayName": "Formatação por Coluna",
+      "properties": {
+        "hideColumn": {
+          "displayName": "Ocultar esta coluna (usar só como apoio)",
+          "type": { "bool": true }
+        },
+        "show": {
+          "displayName": "Aplicar destaque de status (pill colorido)",
+          "type": { "bool": true }
+        },
+        "colorSource": {
+          "displayName": "Fonte da Cor",
+          "type": {
+            "enumeration": [
+              { "value": "compareText", "displayName": "Comparar valor de texto" },
+              { "value": "statusColumn", "displayName": "Usar coluna de status (DAX)" }
+            ]
+          }
+        },
+        "positiveValue": {
+          "displayName": "Valor Positivo (modo: comparar texto)",
+          "type": { "text": true }
+        },
+        "neutralValue": {
+          "displayName": "Valor Neutro (modo: comparar texto)",
+          "type": { "text": true }
+        },
+        "negativeValue": {
+          "displayName": "Valor Negativo (modo: comparar texto)",
+          "type": { "text": true }
+        },
+        "statusColumnName": {
+          "displayName": "Nome da coluna de status (modo: coluna DAX)",
+          "type": { "text": true }
+        },
+        "showInTooltip": {
+          "displayName": "Mostrar esta coluna na tooltip (hover)",
+          "type": { "bool": true }
+        },
+        "columnWidth": {
+          "displayName": "Largura da coluna (px, definido ao arrastar a borda)",
+          "type": { "numeric": true }
+        },
+        "columnOrder": {
+          "displayName": "Ordem de exibição (1, 2, 3...)",
+          "type": { "numeric": true }
+        },
+        "totalAggregation": {
+          "displayName": "Agregação no total (rodapé)",
+          "type": {
+            "enumeration": [
+              { "value": "sum", "displayName": "Soma" },
+              { "value": "average", "displayName": "Média" },
+              { "value": "min", "displayName": "Mínimo" },
+              { "value": "max", "displayName": "Máximo" },
+              { "value": "count", "displayName": "Contagem" },
+              { "value": "none", "displayName": "Nenhum" }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "privileges": []
+}

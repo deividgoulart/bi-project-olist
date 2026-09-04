@@ -1,0 +1,80 @@
+// Sem fonte embutida (diferente dos outros visuais Olist) — este visual não
+// tem texto, só os ícones ☀/🌙 dentro do switch e, no estado mal configurado,
+// uma mensagem curta que usa a fonte do sistema mesmo (não vale a pena
+// embutir ~36KB de fonte variável só pra uma mensagem de diagnóstico).
+
+.visual-root {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: transparent;
+
+    --ds-color-line: #DDE2F0;
+    --ds-color-ink: #131B33;
+    --ds-color-blue: #0A4EE4;
+}
+
+// trilho do switch — cinza (claro) ou azul sólido (escuro), com a bolinha
+// deslizando de um lado pro outro
+.theme-switch {
+    position: relative;
+    width: 56px;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: var(--ds-color-line);
+    cursor: pointer;
+    transition: background-color .15s ease-in-out;
+
+    &.theme-switch--dark {
+        background: var(--ds-color-blue);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--ds-color-blue);
+        outline-offset: 2px;
+    }
+}
+
+.theme-switch-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .78rem;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(19, 27, 51, .3);
+    transition: left .15s ease-in-out;
+
+    .theme-switch--dark & {
+        left: 29px;
+    }
+}
+
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--ds-color-ink);
+    opacity: .6;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: .8rem;
+    text-align: center;
+    padding: 8px;
+    box-sizing: border-box;
+}

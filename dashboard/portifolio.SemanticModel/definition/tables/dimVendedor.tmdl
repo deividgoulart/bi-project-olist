@@ -1,0 +1,36 @@
+table dimVendedor
+	lineageTag: 8ff779ff-9d4a-4ca9-9590-e73e2c931821
+
+	column seller_id
+		dataType: string
+		isHidden
+		lineageTag: 2468b8f0-6f97-486a-adab-0170f799cf90
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_name
+		dataType: string
+		lineageTag: 1603e085-3745-446f-b48d-1472ddd803ac
+		summarizeBy: none
+		sourceColumn: seller_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimVendedor = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(Web.Contents("https://raw.githubusercontent.com/deividgoulart/bi-project-olist/main/data/", [RelativePath="olist_sellers_dataset.csv"]),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"seller_id", type text}, {"seller_zip_code_prefix", Int64.Type}, {"seller_city", type text}, {"seller_state", type text}}),
+				    #"Índice Adicionado" = Table.AddIndexColumn(#"Tipo Alterado", "Índice", 0, 1, Int64.Type),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Índice Adicionado", "seller_name", each "Vendedor " & Text.From([Índice] + 1)),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Personalização Adicionada",{"Índice", "seller_zip_code_prefix", "seller_city", "seller_state"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
