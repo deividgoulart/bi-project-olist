@@ -54,7 +54,7 @@ O projeto seguiu a metodologia de [Gabriela Costa](https://www.linkedin.com/puls
 
 **5. Construção** — modelo dimensional, medidas DAX e os visuais customizados.
 
-📄 **[Documentação completa do dashboard](https://docs.google.com/document/d/1awJ2zWBg8JRzXyQOTPRkgzlLG4Ei78oG0qNuYDhUPuo/edit?usp=sharing)** — objetivo, fontes, transformações, modelo dimensional, medidas e controle de acesso. A versão em Markdown, versionada junto do projeto, está em [`docs/documentacao-dashboard.md`](docs/documentacao-dashboard.md).
+📄 **[Documentação completa do dashboard](https://docs.google.com/document/d/1awJ2zWBg8JRzXyQOTPRkgzlLG4Ei78oG0qNuYDhUPuo/edit?usp=sharing)** — documento técnico com objetivo, público-alvo, fontes de dados, transformações, modelo dimensional, estrutura das páginas, medidas, controle de acesso e histórico de mudanças.
 
 ## Os visuais customizados
 
