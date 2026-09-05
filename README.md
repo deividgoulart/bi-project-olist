@@ -4,6 +4,8 @@ Um dashboard de Power BI que conecta **prazo de entrega** e **satisfação do cl
 
 Construído do zero — do levantamento de requisitos aos oito visuais customizados desenvolvidos em TypeScript, porque nenhum visual nativo do Power BI entregava a identidade visual definida no mockup.
 
+🔗 **[Abrir o dashboard ao vivo](https://app.fabric.microsoft.com/view?r=eyJrIjoiY2I4OWQ3NGUtMjIyZi00NmE2LTk5NzUtNDgxMTYwZjA4OWJlIiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9)** — interativo, sem login. Clique nas barras para cross-filtrar, use o clique direito para o drill-through e o interruptor no canto superior direito para alternar entre tema claro e escuro.
+
 ![Dashboard de operações e CX](docs/img/dashboard-pagina-1.png)
 
 ![Detalhe de pedidos](docs/img/dashboard-pagina-2.png)
