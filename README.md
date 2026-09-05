@@ -98,7 +98,7 @@ Duas decisões de modelagem que valem menção:
 git clone https://github.com/deividgoulart/bi-project-olist.git
 ```
 
-1. Abra `dashboard/portifolio.pbip` no Power BI Desktop.
+1. Abra `dashboard/dashboard-operacoes-cx.pbip` no Power BI Desktop.
 2. Importe os oito `.pbiviz` da pasta `Pbiviz/` em **Inserir → Mais visuais → Importar visual de um arquivo**.
 3. Na primeira atualização o Power BI pede credencial da fonte web: escolha **Anônimo**.
 

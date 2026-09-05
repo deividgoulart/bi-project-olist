@@ -1,5 +1,4 @@
 relationship bc0bca00-f01c-0df7-9c1f-d7bc2390423e
-	crossFilteringBehavior: bothDirections
 	fromColumn: fatoPedidos.customer_id
 	toColumn: dimCliente.customer_id
 
