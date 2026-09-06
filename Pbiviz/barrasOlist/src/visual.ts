@@ -41,7 +41,9 @@ import {
     aggregateByGrouping,
     resolveThemeMode,
     SortMode,
-    OthersAggregation
+    OthersAggregation,
+    buildCategoryLevelSpans,
+    splitConcatenatedLevels
 } from "./chartLogic";
 
 const OTHERS_LABEL = "Outros";
@@ -83,6 +85,27 @@ const DS_TOKENS = {
         shadow: "0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px -14px rgba(0, 0, 0, .6)"
     }
 };
+
+// separador entre os níveis quando o eixo recebe uma hierarquia (ex: Ano > Mês
+// vira "2018 · jan"). Vários campos num mesmo papel de agrupamento fazem o
+// Power BI devolver colunas paralelas e alinhadas por linha — que para um eixo
+// de gráfico é exatamente o comportamento desejado, ao contrário do que
+// acontece num filtro (ver o README do filtroOlist)
+const NIVEL_SEPARADOR = " · ";
+
+function splitCategoryLevels(categories: powerbi.DataViewCategoryColumn[] | undefined): string[][] {
+    const niveis = categories ?? [];
+    if (niveis.length === 0) return [];
+    return niveis[0].values.map((_, linha) =>
+        niveis
+            .map(nivel => String(nivel.values[linha] ?? "").trim())
+            .filter(texto => texto.length > 0)
+    );
+}
+
+function joinCategoryLevels(categories: powerbi.DataViewCategoryColumn[] | undefined): string[] {
+    return splitCategoryLevels(categories).map(linha => linha.join(NIVEL_SEPARADOR));
+}
 
 type ChartType = "bar" | "line";
 type AxisAssignment = "primary" | "secondary";
@@ -434,10 +457,12 @@ export class Visual implements IVisual {
         // índice de cada valor de categoria na coluna original — categoryValues
         // já vem ordenado/cortado pelo Top N, então não dá pra usar a posição
         // dele como índice
+        // a chave tem que ser montada do mesmo jeito que em renderChart (todos
+        // os níveis juntos), senão a busca falha e toda barra cai na identidade
+        // da série — o que derruba cross-filter e drillthrough sem erro nenhum
         const categoryColumn = categorical.categories?.[0];
         const categoryIndexOf = new Map<string, number>();
-        categoryColumn?.values.forEach((value, index) => {
-            const key = String(value);
+        joinCategoryLevels(categorical.categories).forEach((key, index) => {
             if (!categoryIndexOf.has(key)) categoryIndexOf.set(key, index);
         });
 
@@ -819,7 +844,8 @@ export class Visual implements IVisual {
         const hasSecondaryAxis = secondaryBarSeries.length > 0 || secondaryLineSeries.length > 0;
 
         const categoryColumn = categorical.categories[0];
-        const originalCategoryValues = categoryColumn.values.map(v => String(v ?? ""));
+        const originalCategoryValues = joinCategoryLevels(categorical.categories);
+        const categoryLevelsLabel = categorical.categories.map(c => c.source.displayName).join(NIVEL_SEPARADOR);
 
         let workingCategoryValues = originalCategoryValues;
         let categoryValueMap = this.buildCategoryValueMap(visibleSeriesInfos, originalCategoryValues);
@@ -1009,9 +1035,56 @@ export class Visual implements IVisual {
 
         const longestCategoryLabel = categoryValues.reduce((max, c) => Math.max(max, c.length), 0);
 
+        // com hierarquia no eixo, cada categoria vira uma pilha de rótulos: o
+        // nível mais profundo colado no eixo e os pais abaixo, cada um centrado
+        // sob o trecho que ele cobre — o mesmo desenho que o Power BI nativo faz,
+        // e bem mais legível que repetir "2018 · jan" em cada barra
+        // O Power BI entrega hierarquia de duas formas diferentes, e o visual
+        // precisa lidar com as duas:
+        //   1. sem drilldown declarado -> uma coluna por nível, alinhadas por linha
+        //   2. com drilldown declarado  -> UMA coluna só, valores já concatenados
+        //      por espaço ("2016 out"), com identityFields trazendo um item por nível
+        // Confirmado instrumentando o visual em execução, não por suposição.
+        const niveisPorChave = new Map<string, string[]>();
+        const colunasCategoria = categorical.categories ?? [];
+
+        if (colunasCategoria.length > 1) {
+            splitCategoryLevels(colunasCategoria).forEach(niveis => {
+                const chave = niveis.join(NIVEL_SEPARADOR);
+                if (!niveisPorChave.has(chave)) niveisPorChave.set(chave, niveis);
+            });
+        } else {
+            const profundidadeDeclarada = colunasCategoria[0]?.identityFields?.length ?? 1;
+            // só monta os níveis se TODAS as categorias dividirem com segurança —
+            // dividir parte delas deixaria o eixo agrupando errado pela metade
+            const divididos = originalCategoryValues.map(v => splitConcatenatedLevels(v, profundidadeDeclarada));
+            if (profundidadeDeclarada > 1 && divididos.every(d => d !== null)) {
+                originalCategoryValues.forEach((valor, i) => {
+                    if (!niveisPorChave.has(valor)) niveisPorChave.set(valor, divididos[i] as string[]);
+                });
+            }
+        }
+        const profundidade = Math.max(1, ...Array.from(niveisPorChave.values(), n => n.length));
+        const temHierarquia = orientation === "colunas" && showCategoryAxis && profundidade > 1;
+        // no modo hierarquia o texto colado no eixo é só a folha ("jan"), então a
+        // decisão de inclinar tem que olhar a folha, não a chave inteira
+        const folhaDe = (chave: string): string => {
+            const niveis = niveisPorChave.get(chave);
+            return niveis && niveis.length > 0 ? niveis[niveis.length - 1] : chave;
+        };
+        const larguraTextoEixo = temHierarquia
+            ? categoryValues.reduce((max, c) => Math.max(max, folhaDe(c).length), 0) * axisFontSize * 0.6
+            : longestCategoryLabel * axisFontSize * 0.6;
+        const larguraDisponivelPorCategoria =
+            Math.max(viewport.width - 62, 50) / Math.max(categoryValues.length, 1);
+        const rotacionarRotulos =
+            orientation === "colunas" && showCategoryAxis && larguraTextoEixo > larguraDisponivelPorCategoria;
+
+        const alturaLinhaNivel = axisFontSize + 8;
         const margin = { top: 12, right: 16, bottom: 12, left: 16 };
         if (orientation === "colunas") {
-            margin.bottom = showCategoryAxis ? 30 : 8;
+            const base = rotacionarRotulos ? Math.min(110, larguraTextoEixo * 0.72 + 18) : 30;
+            margin.bottom = showCategoryAxis ? base + (temHierarquia ? (profundidade - 1) * alturaLinhaNivel : 0) : 8;
             margin.left = showValueAxis ? 46 : 8;
         } else {
             margin.left = showCategoryAxis ? Math.min(160, Math.max(60, longestCategoryLabel * 6.5)) : 8;
@@ -1228,6 +1301,51 @@ export class Visual implements IVisual {
             const axisGroup = contentPlot.append("g").attr("class", "category-axis").style("font-size", `${axisFontSize}px`);
             if (orientation === "colunas") {
                 axisGroup.attr("transform", `translate(0,${innerHeight})`).call(d3.axisBottom(categoryScale).tickSizeOuter(0));
+
+                // no eixo fica só a folha; os pais vão nas linhas de baixo
+                if (temHierarquia) {
+                    axisGroup.selectAll<SVGTextElement, string>("text").text(d => folhaDe(String(d)));
+                }
+
+                if (rotacionarRotulos) {
+                    axisGroup.selectAll<SVGTextElement, unknown>("text")
+                        .attr("transform", "rotate(-45)")
+                        .attr("text-anchor", "end")
+                        .attr("dx", "-0.4em")
+                        .attr("dy", "0.6em");
+                }
+
+                if (temHierarquia) {
+                    const baseY = rotacionarRotulos ? Math.min(110, larguraTextoEixo * 0.72 + 8) : 24;
+                    // um nível por linha, do mais próximo da folha para o mais raso
+                    for (let nivel = profundidade - 2; nivel >= 0; nivel--) {
+                        const linhaY = baseY + (profundidade - 2 - nivel) * alturaLinhaNivel;
+                        const grupo = axisGroup.append("g").attr("class", "category-axis-level");
+
+                        // um rótulo por trecho contíguo, centrado sobre ele — o
+                        // agrupamento em si é testado em chartLogic.test.ts
+                        const trechos = buildCategoryLevelSpans(categoryValues, niveisPorChave, nivel);
+                        trechos.forEach((trecho, i) => {
+                            const x0 = categoryScale(categoryValues[trecho.startIndex]) ?? 0;
+                            const x1 = (categoryScale(categoryValues[trecho.endIndex]) ?? 0) + categoryScale.bandwidth();
+
+                            if (trecho.label) {
+                                grupo.append("text")
+                                    .attr("x", (x0 + x1) / 2)
+                                    .attr("y", linhaY + alturaLinhaNivel - 6)
+                                    .attr("text-anchor", "middle")
+                                    .text(trecho.label);
+                            }
+                            // divisória entre grupos, como o eixo nativo desenha
+                            if (i < trechos.length - 1) {
+                                grupo.append("line")
+                                    .attr("class", "category-axis-divider")
+                                    .attr("x1", x1).attr("x2", x1)
+                                    .attr("y1", linhaY).attr("y2", linhaY + alturaLinhaNivel);
+                            }
+                        });
+                    }
+                }
             } else {
                 axisGroup.call(d3.axisLeft(categoryScale).tickSizeOuter(0));
             }
@@ -1418,7 +1536,7 @@ export class Visual implements IVisual {
                 event.stopPropagation();
             })
             .on("contextmenu", (event: MouseEvent, d: PositionedBarDatum) => {
-                this.selectionManager.showContextMenu(d.selectionId, { x: event.clientX, y: event.clientY });
+                this.selectionManager.showContextMenu(d.selectionId, { x: event.clientX, y: event.clientY }, "categoria");
                 event.preventDefault();
                 event.stopPropagation();
             })
@@ -1438,7 +1556,7 @@ export class Visual implements IVisual {
             })
             .on("mouseenter", (event: MouseEvent, d: PositionedBarDatum) => {
                 const items: TooltipItem[] = [
-                    { displayName: categoryColumn.source.displayName, value: d.categoryValue },
+                    { displayName: categoryLevelsLabel, value: d.categoryValue },
                     ...(visibleSeriesInfos.length > 1 ? [{ displayName: "Série", value: d.seriesName }] : []),
                     { displayName: "Valor", value: formatterForSeries(d.seriesName).format(d.rawValue) }
                 ];
@@ -1515,7 +1633,7 @@ export class Visual implements IVisual {
                     event.stopPropagation();
                 })
                 .on("contextmenu", (event: MouseEvent, p: LinePoint) => {
-                    this.selectionManager.showContextMenu(p.selectionId, { x: event.clientX, y: event.clientY });
+                    this.selectionManager.showContextMenu(p.selectionId, { x: event.clientX, y: event.clientY }, "categoria");
                     event.preventDefault();
                     event.stopPropagation();
                 })
@@ -1529,7 +1647,7 @@ export class Visual implements IVisual {
                 })
                 .on("mouseenter", (event: MouseEvent, p: LinePoint) => {
                     const items: TooltipItem[] = [
-                        { displayName: categoryColumn.source.displayName, value: p.categoryValue },
+                        { displayName: categoryLevelsLabel, value: p.categoryValue },
                         { displayName: "Série", value: series.name },
                         { displayName: "Valor", value: formatterForSeries(series.name).format(p.value) }
                     ];

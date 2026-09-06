@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0.0",
+  "version": "1.2.0.0",
   "author": {
     "name": "Deivid",
     "email": "deividgoulartm@hotmail.com"
@@ -15,7 +15,7 @@
     "guid": "barrasOlist266CF04608031ABF2F6A7C51337656DD",
     "name": "barrasOlist",
     "displayName": "barrasOlist",
-    "version": "1.0.0.0",
+    "version": "1.2.0.0",
     "description": "Gráfico de barras/colunas customizado com a identidade visual Olist, com combo coluna+linha e eixo duplo.",
     "supportUrl": "https://github.com/deividgoulart/bi-project-olist",
     "gitHubUrl": "https://github.com/deividgoulart/bi-project-olist",

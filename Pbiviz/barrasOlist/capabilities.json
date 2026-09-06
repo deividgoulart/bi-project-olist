@@ -1,7 +1,7 @@
 {
   "dataRoles": [
     {
-      "displayName": "Categoria (eixo)",
+      "displayName": "Categoria (eixo) — aceita hierarquia",
       "name": "categoria",
       "kind": "Grouping"
     },
@@ -24,38 +24,91 @@
   "dataViewMappings": [
     {
       "conditions": [
-        { "categoria": { "max": 1 }, "legenda": { "max": 1 }, "valores": { "max": 1 }, "modoVisual": { "max": 1 } },
-        { "categoria": { "max": 1 }, "legenda": { "max": 0 }, "valores": { "min": 0 }, "modoVisual": { "max": 1 } }
+        {
+          "categoria": {
+            "max": 1
+          },
+          "legenda": {
+            "max": 1
+          },
+          "valores": {
+            "max": 1
+          },
+          "modoVisual": {
+            "max": 1
+          }
+        },
+        {
+          "categoria": {
+            "max": 1
+          },
+          "legenda": {
+            "max": 0
+          },
+          "valores": {
+            "min": 0
+          },
+          "modoVisual": {
+            "max": 1
+          }
+        }
       ],
       "categorical": {
         "categories": {
-          "for": { "in": "categoria" },
-          "dataReductionAlgorithm": { "top": { "count": 5000 } }
+          "for": {
+            "in": "categoria"
+          },
+          "dataReductionAlgorithm": {
+            "top": {
+              "count": 5000
+            }
+          }
         },
         "values": {
           "group": {
             "by": "legenda",
             "select": [
-              { "for": { "in": "valores" } },
-              { "for": { "in": "modoVisual" } }
+              {
+                "for": {
+                  "in": "valores"
+                }
+              },
+              {
+                "for": {
+                  "in": "modoVisual"
+                }
+              }
             ],
-            "dataReductionAlgorithm": { "top": { "count": 100 } }
+            "dataReductionAlgorithm": {
+              "top": {
+                "count": 100
+              }
+            }
           }
         }
       }
     }
   ],
+  "drilldown": {
+    "roles": [
+      "categoria"
+    ]
+  },
   "objects": {
     "chartTitle": {
       "displayName": "Título",
       "properties": {
         "show": {
           "displayName": "Mostrar título",
-          "type": { "bool": true }
+          "type": {
+            "bool": true
+          }
         },
         "text": {
           "displayName": "Texto do título",
-          "type": { "text": true }
+          "type": {
+            "text": true
+          }
         }
       }
     },
@@ -64,14 +117,26 @@
       "properties": {
         "fill": {
           "displayName": "Cor",
-          "type": { "fill": { "solid": { "color": true } } }
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
         },
         "chartType": {
           "displayName": "Tipo",
           "type": {
             "enumeration": [
-              { "value": "bar", "displayName": "Coluna/Barra" },
-              { "value": "line", "displayName": "Linha" }
+              {
+                "value": "bar",
+                "displayName": "Coluna/Barra"
+              },
+              {
+                "value": "line",
+                "displayName": "Linha"
+              }
             ]
           }
         },
@@ -79,8 +144,14 @@
           "displayName": "Eixo",
           "type": {
             "enumeration": [
-              { "value": "primary", "displayName": "Primário" },
-              { "value": "secondary", "displayName": "Secundário" }
+              {
+                "value": "primary",
+                "displayName": "Primário"
+              },
+              {
+                "value": "secondary",
+                "displayName": "Secundário"
+              }
             ]
           }
         },
@@ -88,8 +159,14 @@
           "displayName": "Agregação em 'Outros' (Top N)",
           "type": {
             "enumeration": [
-              { "value": "sum", "displayName": "Soma" },
-              { "value": "average", "displayName": "Média" }
+              {
+                "value": "sum",
+                "displayName": "Soma"
+              },
+              {
+                "value": "average",
+                "displayName": "Média"
+              }
             ]
           }
         },
@@ -97,8 +174,14 @@
           "displayName": "Estilo da barra",
           "type": {
             "enumeration": [
-              { "value": "flat", "displayName": "Padrão" },
-              { "value": "pill", "displayName": "Preenchida (estilo mockup)" }
+              {
+                "value": "flat",
+                "displayName": "Padrão"
+              },
+              {
+                "value": "pill",
+                "displayName": "Preenchida (estilo mockup)"
+              }
             ]
           }
         }
@@ -111,8 +194,14 @@
           "displayName": "Orientação",
           "type": {
             "enumeration": [
-              { "value": "colunas", "displayName": "Colunas (vertical)" },
-              { "value": "barras", "displayName": "Barras (horizontal)" }
+              {
+                "value": "colunas",
+                "displayName": "Colunas (vertical)"
+              },
+              {
+                "value": "barras",
+                "displayName": "Barras (horizontal)"
+              }
             ]
           }
         },
@@ -120,39 +209,71 @@
           "displayName": "Modo de múltiplas séries",
           "type": {
             "enumeration": [
-              { "value": "agrupado", "displayName": "Agrupado (lado a lado)" },
-              { "value": "empilhado", "displayName": "Empilhado" },
-              { "value": "empilhado100", "displayName": "Empilhado 100%" }
+              {
+                "value": "agrupado",
+                "displayName": "Agrupado (lado a lado)"
+              },
+              {
+                "value": "empilhado",
+                "displayName": "Empilhado"
+              },
+              {
+                "value": "empilhado100",
+                "displayName": "Empilhado 100%"
+              }
             ]
           }
         },
         "barPadding": {
           "displayName": "Espaçamento entre barras (%)",
-          "type": { "numeric": true }
+          "type": {
+            "numeric": true
+          }
         },
         "cornerRadius": {
           "displayName": "Raio dos cantos (px)",
-          "type": { "numeric": true }
+          "type": {
+            "numeric": true
+          }
         },
         "sortMode": {
           "displayName": "Ordenar por",
           "type": {
             "enumeration": [
-              { "value": "nenhum", "displayName": "Padrão da consulta" },
-              { "value": "categoriaAsc", "displayName": "Categoria (A-Z)" },
-              { "value": "categoriaDesc", "displayName": "Categoria (Z-A)" },
-              { "value": "valorAsc", "displayName": "Valor (crescente)" },
-              { "value": "valorDesc", "displayName": "Valor (decrescente)" }
+              {
+                "value": "nenhum",
+                "displayName": "Padrão da consulta"
+              },
+              {
+                "value": "categoriaAsc",
+                "displayName": "Categoria (A-Z)"
+              },
+              {
+                "value": "categoriaDesc",
+                "displayName": "Categoria (Z-A)"
+              },
+              {
+                "value": "valorAsc",
+                "displayName": "Valor (crescente)"
+              },
+              {
+                "value": "valorDesc",
+                "displayName": "Valor (decrescente)"
+              }
             ]
           }
         },
         "topN": {
           "displayName": "Mostrar só as N maiores categorias (0 = todas)",
-          "type": { "numeric": true }
+          "type": {
+            "numeric": true
+          }
         },
         "maxItemsVisible": {
           "displayName": "Máximo de barras visíveis por vez (0 = todas, sem rolagem)",
-          "type": { "numeric": true }
+          "type": {
+            "numeric": true
+          }
         }
       }
     },
@@ -161,24 +282,40 @@
       "properties": {
         "show": {
           "displayName": "Mostrar linha de referência",
-          "type": { "bool": true }
+          "type": {
+            "bool": true
+          }
         },
         "mode": {
           "displayName": "Tipo",
           "type": {
             "enumeration": [
-              { "value": "media", "displayName": "Média dos valores exibidos" },
-              { "value": "fixo", "displayName": "Valor fixo" }
+              {
+                "value": "media",
+                "displayName": "Média dos valores exibidos"
+              },
+              {
+                "value": "fixo",
+                "displayName": "Valor fixo"
+              }
             ]
           }
         },
         "fixedValue": {
           "displayName": "Valor fixo (modo 'Valor fixo')",
-          "type": { "numeric": true }
+          "type": {
+            "numeric": true
+          }
         },
         "color": {
           "displayName": "Cor da linha",
-          "type": { "fill": { "solid": { "color": true } } }
+          "type": {
+            "fill": {
+              "solid": {
+                "color": true
+              }
+            }
+          }
         }
       }
     },
@@ -187,19 +324,29 @@
       "properties": {
         "showCategoryAxis": {
           "displayName": "Mostrar eixo de categoria",
-          "type": { "bool": true }
+          "type": {
+            "bool": true
+          }
         },
         "showValueAxis": {
           "displayName": "Mostrar eixo de valores",
-          "type": { "bool": true }
+          "type": {
+            "bool": true
+          }
         },
         "showGridlines": {
           "displayName": "Mostrar linhas de grade",
-          "type": { "bool": true }
+          "type": {
+            "bool": true
+          }
         },
         "axisFontSize": {
           "displayName": "Tamanho da fonte dos eixos",
-          "type": { "formatting": { "fontSize": true } }
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
         }
       }
     },
@@ -208,15 +355,23 @@
       "properties": {
         "show": {
           "displayName": "Mostrar rótulos",
-          "type": { "bool": true }
+          "type": {
+            "bool": true
+          }
         },
         "labelFontSize": {
           "displayName": "Tamanho da fonte",
-          "type": { "formatting": { "fontSize": true } }
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
         },
         "abbreviateNumbers": {
           "displayName": "Abreviar números grandes (1.2K, 3.4M)",
-          "type": { "bool": true }
+          "type": {
+            "bool": true
+          }
         }
       }
     },
@@ -225,15 +380,26 @@
       "properties": {
         "show": {
           "displayName": "Mostrar legenda",
-          "type": { "bool": true }
+          "type": {
+            "bool": true
+          }
         },
         "position": {
           "displayName": "Posição",
           "type": {
             "enumeration": [
-              { "value": "top", "displayName": "Topo" },
-              { "value": "bottom", "displayName": "Rodapé" },
-              { "value": "right", "displayName": "Direita" }
+              {
+                "value": "top",
+                "displayName": "Topo"
+              },
+              {
+                "value": "bottom",
+                "displayName": "Rodapé"
+              },
+              {
+                "value": "right",
+                "displayName": "Direita"
+              }
             ]
           }
         }

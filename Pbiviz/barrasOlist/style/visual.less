@@ -127,6 +127,19 @@
     display: block;
 }
 
+// linhas dos níveis pais quando o eixo recebe hierarquia (ano abaixo do mês),
+// com divisória discreta entre os grupos — mesma leitura do eixo nativo
+.category-axis-level {
+    text {
+        fill: var(--ds-color-ink-soft);
+    }
+}
+
+.category-axis-divider {
+    stroke: var(--ds-color-line);
+    stroke-width: 1;
+}
+
 .category-axis,
 .value-axis {
     path.domain,

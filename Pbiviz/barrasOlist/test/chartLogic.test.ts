@@ -8,7 +8,9 @@ import {
     computeTopNSelection,
     aggregateByGrouping,
     resolveThemeMode,
-    CategoryTotal
+    CategoryTotal,
+    buildCategoryLevelSpans,
+    splitConcatenatedLevels
 } from "../src/chartLogic";
 
 describe("toNumber", () => {
@@ -188,5 +190,80 @@ describe("aggregateByGrouping", () => {
         const result = aggregateByGrouping(values, ["SP"], ["RJ", "MG", "BA"], "Outros", "average");
         expect(result.get("SP")).toBe(5);
         expect(result.get("Outros")).toBeCloseTo((3 + 4 + 1) / 3);
+    });
+});
+
+describe("buildCategoryLevelSpans", () => {
+    const niveis = (pares: [string, string[]][]) => new Map<string, string[]>(pares);
+
+    it("escreve o ano uma vez so, cobrindo todos os meses dele", () => {
+        const categorias = ["2017 · nov", "2017 · dez", "2018 · jan", "2018 · fev", "2018 · mar"];
+        const mapa = niveis([
+            ["2017 · nov", ["2017", "nov"]],
+            ["2017 · dez", ["2017", "dez"]],
+            ["2018 · jan", ["2018", "jan"]],
+            ["2018 · fev", ["2018", "fev"]],
+            ["2018 · mar", ["2018", "mar"]],
+        ]);
+        expect(buildCategoryLevelSpans(categorias, mapa, 0)).toEqual([
+            { label: "2017", startIndex: 0, endIndex: 1 },
+            { label: "2018", startIndex: 2, endIndex: 4 },
+        ]);
+    });
+
+    it("um unico ano vira um trecho so, cobrindo o eixo inteiro", () => {
+        const categorias = ["2018 · jan", "2018 · fev", "2018 · mar"];
+        const mapa = niveis(categorias.map(c => [c, ["2018", c.split(" · ")[1]]] as [string, string[]]));
+        expect(buildCategoryLevelSpans(categorias, mapa, 0)).toEqual([
+            { label: "2018", startIndex: 0, endIndex: 2 },
+        ]);
+    });
+
+    it("com anos intercalados (ordenacao por valor) cada trecho e separado", () => {
+        const categorias = ["2018 · jan", "2017 · nov", "2018 · fev"];
+        const mapa = niveis([
+            ["2018 · jan", ["2018", "jan"]],
+            ["2017 · nov", ["2017", "nov"]],
+            ["2018 · fev", ["2018", "fev"]],
+        ]);
+        expect(buildCategoryLevelSpans(categorias, mapa, 0)).toEqual([
+            { label: "2018", startIndex: 0, endIndex: 0 },
+            { label: "2017", startIndex: 1, endIndex: 1 },
+            { label: "2018", startIndex: 2, endIndex: 2 },
+        ]);
+    });
+
+    it("categoria sem nivel pai (ex: balde 'Outros') vira trecho de rotulo vazio", () => {
+        const categorias = ["2018 · jan", "Outros"];
+        const mapa = niveis([["2018 · jan", ["2018", "jan"]], ["Outros", ["Outros"]]]);
+        const spans = buildCategoryLevelSpans(categorias, mapa, 0);
+        expect(spans[0]).toEqual({ label: "2018", startIndex: 0, endIndex: 0 });
+        expect(spans[1].label).toBe("Outros");
+    });
+});
+
+describe("splitConcatenatedLevels", () => {
+    it("separa ano e mes concatenados pelo Power BI", () => {
+        expect(splitConcatenatedLevels("2016 out", 2)).toEqual(["2016", "out"]);
+    });
+
+    it("mantem espacos do nivel mais externo, cortando pela direita", () => {
+        expect(splitConcatenatedLevels("Rio de Janeiro jan", 2)).toEqual(["Rio de Janeiro", "jan"]);
+    });
+
+    it("funciona com tres niveis", () => {
+        expect(splitConcatenatedLevels("2016 T4 out", 3)).toEqual(["2016", "T4", "out"]);
+    });
+
+    it("devolve null quando ha menos partes que niveis", () => {
+        expect(splitConcatenatedLevels("2016", 2)).toBeNull();
+    });
+
+    it("devolve null sem hierarquia", () => {
+        expect(splitConcatenatedLevels("out", 1)).toBeNull();
+    });
+
+    it("devolve null quando sobraria nivel externo vazio", () => {
+        expect(splitConcatenatedLevels("jan fev", 3)).toBeNull();
     });
 });

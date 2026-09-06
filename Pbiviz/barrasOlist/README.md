@@ -22,6 +22,13 @@ Um único visual fixo (sem presets pra escolher), com as cores, tipografia (Plus
 ### Modelo de dados flexível
 Um único par de papéis (`Valores` + `Legenda`, opcional) cobre os dois jeitos mais comuns de ter múltiplas séries: várias medidas soltas em `Valores` (cada uma vira uma série, nomeada pela própria medida) **ou** uma medida só + um campo em `Legenda` (as séries saem dos valores distintos desse campo).
 
+### Hierarquia no eixo, com drill-down
+O papel `categoria` aceita uma hierarquia (ex: `Ano` > `Mês`). O visual declara `drilldown` no `capabilities.json`, então o Power BI desenha os **botões de nível no cabeçalho** e oferece "Drill down"/"Drill up" no clique direito — a navegação é gerenciada pelo host, não pelo visual.
+
+Quando o usuário expande todos os níveis de uma vez, o eixo desenha **um rótulo por nível, empilhado**: o nível mais profundo colado no eixo (`jan`, `fev`) e os níveis pais numa faixa abaixo, cada um escrito **uma única vez, centrado sobre o trecho que cobre**, com divisória entre os grupos — a mesma leitura de um eixo nativo. Se os rótulos não couberem deitados, inclinam automaticamente e a margem inferior cresce junto.
+
+O agrupamento respeita a ordem exibida: como um rótulo só pode cobrir barras contíguas, ordenar por valor faz os anos se intercalarem e cada trecho vira seu próprio grupo. É o comportamento correto, e está fixado em teste.
+
 ### Combo (coluna + linha) e eixo duplo
 Cada série tem, no painel de formatação: **Tipo** (Coluna/Barra ou Linha) e **Eixo** (Primário ou Secundário) — pode combinar livremente, por exemplo uma medida em % (0-100) como coluna no eixo primário e uma nota (0-5) como linha no eixo secundário, cada uma com sua própria escala e formato de número. "Linha" só é respeitada com orientação em Colunas (vertical); em Barras (horizontal) a série sempre desenha como barra normal. Série em eixo secundário ou do tipo linha nunca entra no Empilhado/Empilhado 100% — fica sempre "solta" por cima; as demais barras do eixo primário continuam empilhando normalmente entre si. Orientação e modo de série (agrupado, empilhado, empilhado 100%) continuam configuráveis globalmente.
 
@@ -61,9 +68,11 @@ Sem card global de cores — cada série (mesmo quando só existe uma) tem seu p
 
 ## Arquitetura
 
-- `capabilities.json` — data roles (`categoria`, `legenda`, `valores`, `modoVisual`), objetos de formatação (incluindo `seriesStyle.fill`/`chartType`/`axis`/`othersAggregation`/`barFillStyle`, sempre por série) e o mapeamento categórico de dados.
+- `capabilities.json` — data roles (`categoria`, `legenda`, `valores`, `modoVisual`), objetos de formatação (incluindo `seriesStyle.fill`/`chartType`/`axis`/`othersAggregation`/`barFillStyle`, sempre por série) e o mapeamento categórico de dados, mais `drilldown` apontando para o papel `categoria`.
+
+> **Atenção ao alterar:** o `max` do papel `categoria` nas `conditions` precisa continuar em **1**. É contraintuitivo, mas está na documentação da Microsoft: o drill-down exige `max: 1`, e é o próprio host que libera a hierarquia depois. Subir esse valor para aceitar vários campos **desativa o drill-down**.
 - `src/visual.ts` — renderização SVG (barras, linhas, eixo duplo), interatividade (seleção, ordenação, Top N, legenda, teclado) e o painel de formatação dinâmico por série.
-- `src/chartLogic.ts` — lógica pura (conversão numérica, formatação compacta, contraste de texto, média, ordenação, agrupamento "Top N + Outros", resolução do tema claro/escuro), sem dependência do host do Power BI ou do DOM/D3 — testável isoladamente.
+- `src/chartLogic.ts` — lógica pura (conversão numérica, formatação compacta, contraste de texto, média, ordenação, agrupamento "Top N + Outros", resolução do tema claro/escuro), agrupamento dos níveis pais do eixo em trechos contíguos `buildCategoryLevelSpans`, divisão de hierarquia concatenada `splitConcatenatedLevels`), sem dependência do host do Power BI ou do DOM/D3 — testável isoladamente.
 - `src/settings.ts` — modelo de formatação (título, estilo do gráfico, linha de referência, eixos, rótulos, legenda — sem card de cores; cor é sempre por série, ver `buildSeriesColorCards` em `visual.ts`).
 - `style/visual.less` — a identidade visual Olist fixa (tokens `--ds-*` claro/escuro, fonte Plus Jakarta Sans embutida em base64) e os estilos estruturais.
 - `test/` — suíte Jest para `chartLogic.ts`.
@@ -84,3 +93,14 @@ npm run package    # gera o .pbiviz pra importar em um relatório
 - Séries ocultadas pela legenda e a ordenação/Top N são recalculados no cliente a cada render; com centenas de categorias e várias séries simultâneas isso é instantâneo, mas não foi otimizado pra volumes muito maiores que o típico de um gráfico de barras.
 - O eixo secundário só é desenhado (linha do eixo + números à direita) com orientação em Colunas — em Barras (horizontal) a escala secundária ainda é respeitada no tamanho das barras, mas sem um segundo eixo visível.
 - **As quinas fora do canto arredondado do card aparecem brancas em vez de transparentes por padrão.** Isso não é o visual — é o próprio Power BI, que pinta um plano de fundo nativo atrás de todo visual (seção **Geral > Efeitos > Plano de fundo** no painel de formatação, existe em qualquer visual, nativo ou customizado). Pra ver as cores reais do canvas do relatório atrás do card, desligue esse plano de fundo (ou deixe 100% transparente) — é um ajuste por instância do visual em cada relatório, não algo que o código do visual consiga fixar como padrão.
+
+### Por que a hierarquia chega em dois formatos diferentes
+
+Descoberto instrumentando o visual em execução, não deduzido — e o resultado contraria o que parece natural:
+
+- **Sem `drilldown` declarado**, com vários campos no papel: o Power BI entrega **uma coluna por nível**, alinhadas por linha.
+- **Com `drilldown` declarado**, ao expandir todos os níveis: entrega **uma coluna só**, com os valores **já concatenados por espaço** (`"2016 out"`), e `identityFields` com um item por nível.
+
+O visual trata os dois casos. No segundo, a profundidade vem de `identityFields` — não de contar palavras no nome da coluna, que quebraria com um nível chamado "Mês Número".
+
+A divisão do texto concatenado corta **pela direita**, assumindo que só o nível mais externo pode conter espaço: `"Rio de Janeiro jan"` vira `["Rio de Janeiro", "jan"]`. É uma heurística, e por isso tem trava: se **qualquer** categoria não dividir com segurança, o eixo inteiro volta ao rótulo de uma linha, em vez de agrupar metade certo e metade errado.

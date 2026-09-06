@@ -38,6 +38,15 @@ table dimCalendario
 
 		annotation SummarizationSetBy = Automatic
 
+	column Ano
+		formatString: 0
+		lineageTag: 7f0519d3-2e49-4e2b-b73e-3bbbab61dc3d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ano]
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dimCalendario = calculated
 		mode: import
 		source =
@@ -49,7 +58,8 @@ table dimCalendario
 				    ),
 				    "Mês Número", MONTH([Date]),
 				    "Mês", FORMAT([Date], "MMM"),
-				    "AnoMês", FORMAT([Date], "YYYY-MM")
+				    "AnoMês", FORMAT([Date], "YYYY-MM"),
+				    "Ano", YEAR([Date])
 				)
 
 	annotation PBI_Id = a0212286e580470faab3d73a5c533426

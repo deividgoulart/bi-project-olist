@@ -136,3 +136,56 @@ export function aggregateByGrouping(
     }
     return result;
 }
+
+// Um trecho contíguo de categorias que compartilham o mesmo rótulo num nível
+// pai da hierarquia do eixo — usado para escrever "2018" uma única vez,
+// centrado sobre os meses daquele ano, em vez de repetir em cada barra.
+export interface CategoryLevelSpan {
+    label: string;
+    startIndex: number;
+    endIndex: number;
+}
+
+// Agrupa categorias VIZINHAS que compartilham o mesmo pai. A adjacência importa:
+// a lista já passou por ordenação e Top N, então se o usuário ordenar por valor
+// os anos se intercalam e cada trecho vira seu próprio grupo — que é o
+// comportamento correto, porque um rótulo só pode cobrir barras contíguas.
+export function buildCategoryLevelSpans(
+    categories: string[],
+    levelsByCategory: Map<string, string[]>,
+    level: number
+): CategoryLevelSpan[] {
+    const spans: CategoryLevelSpan[] = [];
+    let start = 0;
+    const labelAt = (i: number): string => (levelsByCategory.get(categories[i]) ?? [])[level] ?? "";
+
+    while (start < categories.length) {
+        const label = labelAt(start);
+        let end = start;
+        while (end + 1 < categories.length && labelAt(end + 1) === label) end++;
+        spans.push({ label, startIndex: start, endIndex: end });
+        start = end + 1;
+    }
+    return spans;
+}
+
+// Quando o eixo declara drilldown, o Power BI NÃO entrega uma coluna por nível:
+// entrega uma coluna só, com os valores já concatenados por espaço ("2016 out").
+// Esta função recupera os níveis a partir desse texto.
+//
+// A divisão assume que apenas o nível MAIS EXTERNO pode conter espaço — os
+// internos (mês, trimestre, dia) são curtos e de uma palavra. Por isso corta a
+// partir da direita: "Rio de Janeiro jan" com 2 níveis vira ["Rio de Janeiro",
+// "jan"], e não ["Rio", "de Janeiro jan"].
+//
+// Devolve null quando não consegue dividir com segurança — o chamador deve
+// então voltar ao rótulo de uma linha, em vez de agrupar errado.
+export function splitConcatenatedLevels(value: string, depth: number): string[] | null {
+    if (depth <= 1) return null;
+    const partes = value.split(" ").filter(p => p.length > 0);
+    if (partes.length < depth) return null;
+
+    const internos = partes.slice(partes.length - (depth - 1));
+    const externo = partes.slice(0, partes.length - (depth - 1)).join(" ");
+    return externo.length > 0 ? [externo, ...internos] : null;
+}
